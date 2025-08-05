@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VIP Android - Login</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+
+  <!-- Estilo -->
+  <link rel="stylesheet" href="css/login.css" />
+
+  <!-- Manifest PWA -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#000000" />
+
+  <!-- iOS PWA support -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="VipAndroid" />
+  <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+
+  <!-- Service Worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/firebase-messaging-sw.js')
+        .then(reg => console.log("✅ Service Worker registrado"))
+        .catch(err => console.warn("Erro ao registrar Service Worker:", err));
+    }
+  </script>
+
+  <!-- Script de autenticação -->
+  <script type="module" src="js/auth.js" defer></script>
+</head>
+<body>
+  <div class="login-container">
+    <img src="imagens/logo.png" alt="Logo VIP Android" class="logo" />
+    <h1>
+  Bem-vindo(a) à<br />
+  <span class="vip-destaque">VIP ANDROID</span>
+</h1>
+    <p>Faça login para continuar</p>
+
+    <form id="loginForm">
+      <input type="email" id="email" placeholder="E-mail" required />
+
+      <div class="senha-container">
+        <input type="password" id="password" placeholder="Senha" required />
+        <span class="olho" onclick="toggleSenha()" role="button" aria-label="Mostrar ou esconder senha">👁️</span>
+      </div>
+
+      <button type="submit">Entrar</button>
+    </form>
+
+    <button id="googleLogin">Entrar com Google</button>
+
+    <div class="links">
+      <a href="#" id="resetSenha">Esqueci minha senha</a>
+      <a href="register.html">Criar conta</a>
+    </div>
+  </div>
+
+  <script>
+    function toggleSenha() {
+      const senhaInput = document.getElementById("password");
+      senhaInput.type = senhaInput.type === "password" ? "text" : "password";
+    }
+  </script>
+</body>
+</html>

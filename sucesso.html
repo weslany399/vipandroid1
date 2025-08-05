@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pagamento Aprovado</title>
+  <style>
+    body {
+      background-color: #e0ffe0;
+      text-align: center;
+      padding: 40px 20px;
+      font-family: sans-serif;
+    }
+    h1 {
+      color: #2ecc71;
+      font-size: 2em;
+    }
+    p {
+      font-size: 1.2em;
+      margin-top: 10px;
+    }
+    a {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 12px 24px;
+      background: #3498db;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>✅ Pagamento Aprovado!</h1>
+    <p>Obrigado por comprar com a VIP Android!</p>
+    <p id="mensagemSucesso"></p>
+    <a href="home.html" aria-label="Voltar para a loja">Voltar para a Loja</a>
+  </main>
+
+  <!-- Script que limpa o carrinho ao confirmar status "approved" no Firestore -->
+  <script type="module" src="js/sucesso.js"></script>
+</body>
+</html>

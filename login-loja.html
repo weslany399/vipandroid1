@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login – VIP Android</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body {
+      background: #030348;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .container {
+      max-width: 400px;
+      margin: 160px auto;
+      background: #1c1c3c;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 24px;
+      color: #00ccff;
+    }
+    .input-group {
+      position: relative;
+      margin-bottom: 20px;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+    .toggle-senha {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #00ccff;
+      font-size: 18px;
+      cursor: pointer;
+    }
+    .btn-principal {
+      width: 100%;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      background: #00ccff;
+      color: #000;
+      cursor: pointer;
+    }
+    .btn-principal:hover {
+      background: #009acc;
+    }
+    .mensagem {
+      margin-top: 16px;
+      text-align: center;
+      font-size: 15px;
+    }
+    .sucesso { color: #00ff99; }
+    .erro { color: #ff5555; }
+
+    .voltar {
+      display: block;
+      margin-top: 22px;
+      text-align: center;
+      color: #00ccff;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Login da Loja</h2>
+
+    <div class="input-group">
+      <input type="text" id="nome" placeholder="Nome completo" />
+    </div>
+
+    <div class="input-group">
+      <input type="password" id="senha" placeholder="Senha" />
+      <button type="button" class="toggle-senha" id="toggleSenha">👁️</button>
+    </div>
+
+    <button id="entrar" class="btn-principal">Entrar</button>
+
+    <p id="msg" class="mensagem"></p>
+
+    <a href="painel-loja.html" class="voltar">← Voltar ao Cadastro</a>
+  </div>
+
+  <script type="module" src="js/login-loja.js"></script>
+  <script>
+    // Mostrar / ocultar senha
+    const senhaInput = document.getElementById("senha");
+    const toggleBtn = document.getElementById("toggleSenha");
+
+    toggleBtn.addEventListener("click", () => {
+      const tipo = senhaInput.type === "password" ? "text" : "password";
+      senhaInput.type = tipo;
+      toggleBtn.textContent = tipo === "password" ? "👁️" : "🙈";
+    });
+  </script>
+</body>
+</html>

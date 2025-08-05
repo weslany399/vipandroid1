@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Estoque - VIP Android</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- TOPO -->
+  <div class="topo">
+    <img src="imagens/logo.png" alt="Logo VIP Android" class="logo-topo" />
+  </div>
+
+  <!-- BARRA SUPERIOR -->
+  <div class="barra-superior">
+    <button id="menuBotao">☰</button>
+    <input type="text" id="busca" placeholder="Buscar produto..." />
+  </div>
+
+  <!-- MENU LATERAL -->
+  <nav class="menu-lateral" id="menuLateral">
+    <ul>
+      <li><a href="dashboard-loja.html">⬅ Voltar para o Painel da Loja</a></li>
+    </ul>
+  </nav>
+
+  <!-- CONTAINER DE PRODUTOS -->
+  <div id="estoqueContainer"></div>
+
+  <!-- MODAL DE IMAGEM -->
+  <div id="modalImagem">
+    <button class="close">✕</button>
+    <button class="delete">🗑️</button>
+    <button class="add">➕</button>
+    <button class="arrow left">←</button>
+    <img src="" alt="Imagem ampliada" id="modalImg" />
+    <button class="arrow right">→</button>
+    <!-- INPUT DE ARQUIVO PARA UPLOAD -->
+    <input type="file" id="inputArquivoImg" accept="image/*" hidden multiple />
+  </div>
+
+  <!-- MODAL DE EDIÇÃO -->
+  <div id="modalEdicao" class="modal oculto">
+    <div class="form-edicao">
+      <h2>Editar Produto</h2>
+      <label>Nome:<input type="text" id="editNome" /></label>
+      <label>Marca:<input type="text" id="editMarca" /></label>
+      <label>Armazenamento (GB):<input type="number" id="editArmazenamento" /></label>
+      <label>RAM (GB):<input type="number" id="editRam" /></label>
+      <label>Tela ("):<input type="number" step="0.1" id="editTela" /></label>
+      <label>Câmera Traseira (MP):<input type="text" id="editCameraTraseira" /></label>
+      <label>Câmera Frontal (MP):<input type="number" id="editCameraFrontal" /></label>
+      <label>Bateria (mAh):<input type="number" id="editBateria" /></label>
+      <label>Descrição:<textarea id="editDescricao"></textarea></label>
+      <label>Preço (R$):<input type="number" step="0.01" id="editPreco" /></label>
+      <label>Preço Antigo (R$):<input type="number" step="0.01" id="editPrecoAntigo" /></label>
+      <label>Oferta:
+        <select id="editOferta">
+          <option value="false">Não</option>
+          <option value="true">Sim</option>
+        </select>
+      </label>
+      <label>Frete Grátis:
+        <select id="editFreteGratis">
+          <option value="false">Não</option>
+          <option value="true">Sim</option>
+        </select>
+      </label>
+      <label>Quantidade no Estoque:
+        <input type="number" id="editQuantidade" />
+      </label>
+      <div class="botoes-edicao" style="margin-top:10px;">
+        <button id="btnSalvarEdicao">Salvar</button>
+        <button id="btnCancelarEdicao">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FIREBASE -->
+  <script type="module" src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
+  <script type="module" src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js"></script>
+
+  <!-- JS PRINCIPAL DO ESTOQUE -->
+  <script type="module" src="js/estoque.js"></script>
+</body>
+</html>

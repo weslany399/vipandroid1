@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cadastro de Produto - Loja VIP Android</title>
+
+  <link rel="stylesheet" href="css/style.css" />
+
+  <style>
+    main {
+      max-width: 480px;
+      margin: 140px auto 40px;
+      background: #1d1d3c;
+      padding: 20px 24px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.6);
+      color: #fff;
+    }
+    main h2 { text-align: center; margin-bottom: 16px; }
+    label { display: block; margin-top: 12px; margin-bottom: 6px; font-weight: 600; }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: none;
+      font-size: 15px;
+      outline: none;
+      background: #292955;
+      color: #fff;
+    }
+    textarea { resize: vertical; min-height: 80px; }
+    .small-row { display: flex; gap: 10px; }
+    .small-row input { flex: 1; }
+    button {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      font-weight: 600;
+      font-size: 18px;
+      cursor: pointer;
+      margin-top: 16px;
+    }
+    .btn-salvar { background: #00ccff; color: #000; }
+    .btn-salvar:hover { background: #00b0df; }
+    .btn-voltar { background: #666; color: #fff; }
+    .btn-voltar:hover { background: #444; }
+    #mensagem {
+      margin-top: 14px;
+      text-align: center;
+      font-size: 15px;
+      color: #ff7575;
+      min-height: 22px;
+    }
+    .oferta-box {
+      background: #222857;
+      padding: 10px;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+    .cores-opcoes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .cor-opcao {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      background: #2e2e5e;
+      padding: 6px 10px;
+      border-radius: 8px;
+    }
+    .cor-bolinha {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 1px solid #ccc;
+    }
+    .cores-selecionadas {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #ccc;
+      font-style: italic;
+    }
+
+    /* Lista de fotos selecionadas */
+    #fotosLista {
+      margin-top: 6px;
+      font-size: 13px;
+      color: #ccc;
+    }
+    #fotosLista li {
+      list-style: disc;
+      margin-left: 20px;
+      line-height: 1.3em;
+    }
+  </style>
+</head>
+<body>
+  <div class="topo">
+    <img src="imagens/logo.png" alt="Logo VIP Android" class="logo-topo" />
+  </div>
+
+  <main>
+    <h2>Cadastro de Celular</h2>
+    <form id="formCadastro">
+      <!-- Dados do produto -->
+      <label for="nome">Nome do produto</label>
+      <input id="nome" required placeholder="Ex: Galaxy S25" />
+
+      <label for="marca">Marca</label>
+      <input id="marca" required placeholder="Ex: Samsung" />
+
+      <label for="estado">Estado</label>
+      <select id="estado" required>
+        <option value="" disabled selected>Selecione</option>
+        <option value="novo">Novo</option>
+        <option value="seminovo">Seminovo</option>
+        <option value="usado">Usado</option>
+      </select>
+
+      <label for="preco">Preço (R$)</label>
+      <input type="number" id="preco" required min="1" step="0.01" placeholder="Ex: 3299" />
+
+      <label><input type="checkbox" id="ofertaDia" /> Marcar como Oferta do Dia</label>
+      <div id="ofertaBox" class="oferta-box" style="display:none;">
+        <label for="precoAntigo">Preço antigo (R$)</label>
+        <input type="number" id="precoAntigo" step="0.01" />
+        <label for="precoOferta">Preço oferta (R$)</label>
+        <input type="number" id="precoOferta" step="0.01" />
+      </div>
+
+      <label><input type="checkbox" id="freteGratis" /> Oferecer Frete Grátis</label>
+
+      <label for="quantidade">Quantidade em estoque</label>
+      <input type="number" id="quantidade" required min="0" placeholder="Ex: 5" />
+
+      <label for="status">Status</label>
+      <select id="status" required>
+        <option value="disponivel">Disponível</option>
+        <option value="reservado">Reservado</option>
+      </select>
+
+      <div class="small-row">
+        <div>
+          <label for="armazenamento">Armazenamento</label>
+          <input type="number" id="armazenamento" placeholder="GB" />
+        </div>
+        <div>
+          <label for="memoria">RAM</label>
+          <input type="number" id="memoria" placeholder="GB" />
+        </div>
+      </div>
+
+      <div class="small-row">
+        <div>
+          <label for="tela">Tela</label>
+          <input type="number" id="tela" placeholder="6.5" step="0.1" />
+        </div>
+        <div>
+          <label for="bateria">Bateria</label>
+          <input type="number" id="bateria" placeholder="mAh" />
+        </div>
+      </div>
+
+      <label for="cameraTraseira">Câmera traseira</label>
+      <input id="cameraTraseira" placeholder="Ex: 50+12+10" />
+
+      <label for="cameraFrontal">Câmera frontal</label>
+      <input id="cameraFrontal" type="number" placeholder="MP" />
+
+      <!-- Bloco de CORES -->
+      <label>Cores disponíveis</label>
+      <div class="cores-opcoes" id="coresOpcoes"></div>
+      <div class="cores-selecionadas" id="coresSelecionadas">Nenhuma cor selecionada</div>
+
+      <!-- DESCRIÇÃO -->
+      <label for="descricao">Descrição extra (opcional)</label>
+      <textarea id="descricao" placeholder="Detalhes adicionais..."></textarea>
+
+      <!-- FOTOS -->
+      <label for="fotos">Fotos do produto (várias)</label>
+      <input type="file" id="fotos" accept="image/*" multiple required />
+      <ul id="fotosLista"></ul>
+
+      <button type="submit" class="btn-salvar">Cadastrar Produto</button>
+      <button type="button" class="btn-voltar" onclick="location.href='dashboard-loja.html'">← Voltar ao Painel</button>
+    </form>
+
+    <p id="mensagem"></p>
+  </main>
+
+  <script type="module" src="js/cadastro-produto.js"></script>
+</body>
+</html>

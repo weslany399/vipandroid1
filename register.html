@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Criar Conta - VIP Android</title>
+  <link rel="stylesheet" href="css/login.css" />
+  <script type="module" src="js/auth.js" defer></script>
+</head>
+<body>
+  <div class="login-container">
+    <img src="imagens/logo.png" alt="Logo VIP Android" class="logo" />
+    <h1>Cadastro</h1>
+    <p>Crie sua conta para continuar</p>
+
+    <form id="registerForm">
+      <input type="text" id="nome" placeholder="Nome completo" required />
+      <input type="email" id="email" placeholder="E-mail" required />
+
+      <div class="senha-container">
+        <input type="password" id="password" placeholder="Senha (mín. 6 caracteres)" required />
+        <span class="olho" onclick="toggleSenha()">👁️</span>
+      </div>
+
+      <button type="submit">Criar Conta</button>
+    </form>
+
+    <div class="links">
+      <a href="index.html">Voltar para Login</a>
+    </div>
+  </div>
+
+  <script>
+    function toggleSenha() {
+      const senhaInput = document.getElementById("password");
+      senhaInput.type = senhaInput.type === "password" ? "text" : "password";
+    }
+  </script>
+</body>
+</html>

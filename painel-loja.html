@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cadastro de Acesso – Vip Android</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body {
+      background-color: #030348;
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+    }
+    .container {
+      max-width: 500px;
+      margin: 160px auto 40px;
+      background: #1c1c3c;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+    }
+    h2 {
+      text-align: center;
+      color: #00ccff;
+      margin-bottom: 24px;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin: 16px 0 6px;
+    }
+    input {
+      width: 100%;
+      padding: 14px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+    }
+    .senha-container {
+      position: relative;
+    }
+    .senha-container input {
+      padding-right: 40px;
+    }
+    .toggle-senha {
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button {
+      width: 100%;
+      padding: 14px;
+      font-size: 16px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .btn-principal {
+      background-color: #00ccff;
+      color: #000;
+    }
+    .btn-principal:hover {
+      background-color: #009acc;
+    }
+    .btn-voltar {
+      background-color: #666;
+      color: white;
+      margin-top: 20px;
+    }
+    .btn-voltar:hover {
+      background-color: #444;
+    }
+    .mensagem {
+      margin-top: 18px;
+      font-size: 15px;
+      text-align: center;
+    }
+    .sucesso {
+      color: #00ff99;
+    }
+    .erro {
+      color: #ff5555;
+    }
+    .link-login {
+      text-align: center;
+      margin-top: 24px;
+    }
+    .link-login a {
+      color: #00ccff;
+      font-weight: bold;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Cadastro de Acesso</h2>
+    <form id="formFunc">
+      <label>Nome Completo</label>
+      <input type="text" name="from_name" required />
+
+      <label>CPF</label>
+      <input type="text" name="cpf" required />
+
+      <label>E-mail</label>
+      <input type="email" name="from_email" required />
+
+      <label>Telefone</label>
+      <input type="tel" name="phone" required />
+
+      <label>Senha</label>
+      <div class="senha-container">
+        <input type="password" name="message" id="senha" required />
+        <span class="toggle-senha" onclick="toggleSenha()">👁️</span>
+      </div>
+
+      <button type="submit" class="btn-principal">Cadastrar</button>
+    </form>
+
+    <p id="msg" class="mensagem"></p>
+
+    <div class="link-login">
+      Já tem login? <a href="login-loja.html">Clique aqui</a>
+    </div>
+
+    <button class="btn-voltar" onclick="location.href='home.html'">← Voltar ao Início</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script src="js/painel-loja.js" type="module"></script>
+  <script>
+    function toggleSenha() {
+      const input = document.getElementById("senha");
+      input.type = input.type === "password" ? "text" : "password";
+    }
+  </script>
+</body>
+</html>

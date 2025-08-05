@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detalhes do Produto</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body {
+      background: #f2f2f2;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    .box {
+      max-width: 480px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+    .carousel {
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      cursor: zoom-in;
+    }
+
+    .carousel img {
+      width: 100%;
+      height: 280px;
+      object-fit: contain;
+      transition: 0.2s;
+    }
+
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,.5);
+      color: #fff;
+      border: none;
+      font-size: 26px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .left { left: 8px; }
+    .right { right: 8px; }
+
+    h2 {
+      margin: 14px 0 8px;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .descricao {
+      color: #444444;
+      margin: 8px 0 12px;
+      line-height: 1.4em;
+    }
+
+    .preco        { font-size: 20px; font-weight: bold; color: #1a8cff; margin: 6px 0; }
+    .preco-ant    { text-decoration: line-through; color: #888; font-size: 14px; }
+    .preco-oferta { color: #d40000; font-weight: bold; font-size: 22px; }
+    .frete        { color: #008000; font-size: 14px; margin-bottom: 6px; }
+
+    .cores-disponiveis {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .cor-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 8px;
+      background: #eee;
+      border: 2px solid transparent;
+    }
+
+    .cor-item.selecionada {
+      border-color: #00ccff;
+      background: #ccf6ff;
+    }
+
+    .cor-bolinha {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 14px;
+      font-size: 16px;
+      font-weight: bold;
+      background: #00ccff;
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover { background: #00b0df; }
+
+    .voltar {
+      background: #ccc;
+      margin-top: 10px;
+    }
+
+    #cartFloat {
+      position: fixed;
+      right: 18px;
+      bottom: 24px;
+      background: #00ccff;
+      color: #000;
+      font-size: 24px;
+      padding: 12px 14px;
+      border-radius: 50%;
+      text-decoration: none;
+      box-shadow: 0 0 8px rgba(0,0,0,.5);
+      z-index: 999;
+    }
+
+    #cartFloat.oculto {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <div class="carousel" id="carousel">
+      <button class="arrow left" id="prevImg">‹</button>
+      <button class="arrow right" id="nextImg">›</button>
+      <img id="imgAtiva" alt="Imagem do Produto" />
+    </div>
+    <div id="info"></div>
+    <button id="adicionarCarrinho">Adicionar ao Carrinho</button>
+    <button class="voltar" onclick="history.back()">← Voltar</button>
+  </div>
+
+  <a href="carrinho.html" id="cartFloat" class="oculto">🛒</a>
+  <script type="module" src="js/detalhes-produto.js"></script>
+</body>
+</html>

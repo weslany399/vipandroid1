@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ajuda - VIP Android</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* Ajustes específicos para a página de Ajuda */
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    main {
+      margin: 120px 20px 40px; /* espaço para topo e barra */
+      max-width: 800px;
+      width: 100%;
+      align-self: center;
+      background: #1d1d3c;
+      border-radius: 10px;
+      padding: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      color: #eee;
+    }
+
+    main h2 {
+      color: #00ccff;
+      margin-bottom: 12px;
+      font-size: 1.4rem;
+    }
+
+    main p, main li {
+      line-height: 1.6;
+      margin-bottom: 12px;
+      font-size: 1rem;
+    }
+
+    main ol, main ul {
+      margin-left: 1.2em;
+    }
+
+    main ul ul {
+      margin-left: 1.2em;
+      list-style-type: circle;
+    }
+
+    main a {
+      color: #49ff01;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      main {
+        margin: 100px 10px 20px;
+        padding: 16px;
+      }
+      main h2 {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="topo">
+    <img src="imagens/logo.png" alt="Logo VIP Android" class="logo-topo" />
+  </div>
+
+  <div class="barra-superior">
+    <button id="menuBotao" class="menu">☰</button>
+    <h1>❓ Ajuda e Suporte</h1>
+  </div>
+
+  <nav class="menu-lateral oculto">
+    <ul>
+      <li><a href="home.html">🏠 Voltar ao Início</a></li>
+      <li><a href="contato.html">📱 Contato</a></li>
+  </nav>
+
+  <main>
+    <h2>Como funciona a compra?</h2>
+    <p>Para comprar um celular em nossa loja é muito simples:</p>
+    <ol>
+      <li>📱 Navegue pela <strong>página inicial</strong> e clique no <strong>card do celular</strong> desejado.</li>
+      <li>🛒 Clique em <strong>“Adicionar ao Carrinho”</strong>.</li>
+      <li>🧾 Acesse o <strong>carrinho</strong> para gerenciar seus itens.</li>
+      <li>🚀 Clique em <strong>“Prosseguir com a Compra”</strong>.</li>
+      <li>📝 Preencha seus dados (nome, endereço, telefone) para finalizar o pedido.</li>
+    </ol>
+
+    <h2>Sobre a Entrega</h2>
+    <p>A entrega é <strong>100% grátis</strong> para as cidades de <strong>Brasiléia</strong> e <strong>Epitaciolândia</strong>. Você será contatado após a confirmação da compra,ou você pode buscar o andamento da entrega digitando seu <strong>CPF</strong>.</p>
+
+    <h2>Funcionalidades Extras</h2>
+    <ul>
+      <li>🔥 <strong>Ofertas do Dia:</strong> Promoções com descontos imperdíveis!</li>
+      <li>💬 <strong>Avaliações:</strong> Após a compra, deixe sua opinião sobre nossos produtos.</li>
+      <li>⭐ <strong>Favoritos:</strong> Salve produtos para comprar depois.</li>
+      <li>📱 <strong>Contato:</strong> 
+        <ul>
+          <li>📸 Instagram: <strong>@vipandroid</strong></li>
+          <li>📞 WhatsApp da loja</li>
+          <li>📞 Número do proprietário</li>
+        </ul>
+      </li>
+      <li>🔎 <strong>Painel de Busca:</strong> Use o campo de busca no topo para encontrar produtos rapidamente.</li>
+    </ul>
+
+    <h2>É seguro comprar?</h2>
+    <p>Sim! A plataforma VIP Android foi desenvolvida com segurança e praticidade para você comprar com confiança e rapidez.</p>
+
+    <h2>Dúvidas?</h2>
+    <p>Se ainda tiver alguma dúvida, use a aba <a href="contato.html">Contato</a> para falar diretamente conosco.</p>
+  </main>
+
+  <script src="js/menu.js" defer></script>
+</body>
+</html>

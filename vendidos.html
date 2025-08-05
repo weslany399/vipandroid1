@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vendas VIP Android</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <!-- FontAwesome corrigido (sem integrity que causava erro) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+  <style>
+    :root {
+      --cor-bg: hsl(229, 84%, 74%);
+      --cor-card: #6dcff2;
+      --cor-acento: #0066cc;
+      --cor-texto: #000000;
+      --cor-texto-claro: #000000;
+      --sombra: rgba(0, 0, 0, 0.1);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cor-bg);
+      color: var(--cor-texto);
+      padding: 2rem;
+    }
+    h1 {
+      text-align: center;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      color: var(--cor-acento);
+      font-size: 2rem;
+    }
+    .toolbar {
+      display: flex; flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .filtros { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+    .filtros input {
+      padding: 0.5rem 0.75rem;
+      border: 1px solid #c31717;
+      border-radius: 6px;
+      font-size: 1rem;
+      color: var(--cor-texto);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .filtros input:focus { border-color: var(--cor-acento); }
+    .acoes { display: flex; gap: 0.5rem; }
+    .acoes button {
+      display: flex; align-items: center; gap: 0.5rem;
+      background: var(--cor-acento);
+      color: #000000; border: none;
+      padding: 0.6rem 1rem;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .acoes button:hover { background: #005bb5; }
+
+    #listaVendas {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1rem;
+    }
+
+    .venda {
+      background: var(--cor-card);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      box-shadow: 0 2px 8px var(--sombra);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .venda h3 { font-size: 1.25rem; color: var(--cor-acento); }
+    .venda p, .venda li {
+      font-size: 0.95rem;
+      color: var(--cor-texto-claro);
+      line-height: 1.4;
+    }
+    .venda ul { list-style: disc inside; margin-left: 1rem; }
+
+    /* Botão de excluir em cada card */
+    .venda .btn-excluir {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      width: 28px;
+      height: 28px;
+      background: rgba(255,255,255,0.9);
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      color: #900;
+      transition: background 0.2s;
+    }
+    .venda .btn-excluir i {
+      font-size: 16px;
+    }
+    .venda .btn-excluir:hover { background: rgba(255,255,255,1); }
+
+    @media (max-width: 600px) {
+      .toolbar { flex-direction: column; }
+      .acoes { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Vendas VIP Android</h1>
+
+  <div class="toolbar">
+    <button id="btnVoltar" class="btn-voltar">
+      <i class="fas fa-arrow-left"></i>&nbsp;Voltar
+    </button>
+
+    <div class="filtros">
+      <input type="text" id="filtroCliente" placeholder="🔍 Cliente (nome)" />
+      <input type="text" id="filtroProduto" placeholder="🔍 Produto ou marca" />
+      <input type="date" id="filtroDataInicio" title="Data início" />
+      <input type="date" id="filtroDataFim" title="Data fim" />
+    </div>
+
+    <div class="acoes">
+      <button id="btnImprimirTudo"><i class="fas fa-print"></i> Imprimir Tudo</button>
+      <button id="btnApagarTudo"><i class="fas fa-trash-alt"></i> Apagar Tudo</button>
+    </div>
+  </div>
+
+  <!-- Onde os cards são injetados pelo vendidos.js -->
+  <div id="listaVendas"></div>
+
+  <!-- Seu script de controle -->
+  <script type="module" src="js/vendidos.js?v=2.0.1"></script>
+</body>
+</html>

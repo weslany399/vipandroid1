@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>⭐ Avaliações - VIP Android</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .avaliacoes-container {
+      max-width: 700px;
+      margin: 20px auto;
+      background: #1d1d3c;
+      padding: 20px;
+      border-radius: 10px;
+      color: white;
+    }
+
+    .avaliacoes-container h2 {
+      text-align: center;
+      color: #00ccff;
+    }
+
+    .estrelas input {
+      display: none;
+    }
+
+    .estrelas label {
+      font-size: 24px;
+      color: #888;
+      cursor: pointer;
+    }
+
+    .estrelas input:checked ~ label,
+    .estrelas label:hover,
+    .estrelas label:hover ~ label {
+      color: gold;
+    }
+
+    .comentarios {
+      margin-top: 30px;
+    }
+
+    .comentario {
+      background: #2c2c5c;
+      padding: 10px;
+      margin-bottom: 12px;
+      border-radius: 8px;
+    }
+
+    .comentario strong {
+      color: #00ccff;
+    }
+
+    .comentario .estrelas {
+      margin-bottom: 4px;
+    }
+
+    .comentario .estrelas span {
+      color: gold;
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="topo">
+    <img src="imagens/logo.png" class="logo-topo" alt="Logo" />
+  </div>
+
+  <div class="barra-superior">
+    <button id="menuBotao" class="menu">☰</button>
+    <h1>⭐ Avaliações</h1>
+  </div>
+
+  <nav class="menu-lateral oculto">
+    <ul>
+      <li><a href="home.html">🏠 Início</a></li>
+      <li><a href="avaliacoes.html">⭐ Avaliações</a></li>
+      <li><a href="logout.html">🚪 Sair</a></li>
+    </ul>
+  </nav>
+
+  <main class="avaliacoes-container">
+    <h2>Deixe sua Avaliação</h2>
+    <form id="formAvaliacao">
+      <div class="estrelas" id="estrelaContainer">
+        <input type="radio" name="estrela" id="estrela5" value="5"><label for="estrela5">★</label>
+        <input type="radio" name="estrela" id="estrela4" value="4"><label for="estrela4">★</label>
+        <input type="radio" name="estrela" id="estrela3" value="3"><label for="estrela3">★</label>
+        <input type="radio" name="estrela" id="estrela2" value="2"><label for="estrela2">★</label>
+        <input type="radio" name="estrela" id="estrela1" value="1"><label for="estrela1">★</label>
+      </div>
+      <textarea id="comentario" rows="4" placeholder="Escreva seu comentário..." required style="width: 100%; padding: 10px; border-radius: 6px; margin-top: 10px;"></textarea>
+      <input type="text" id="nomeCliente" placeholder="Seu nome (opcional)" style="margin-top: 10px; width: 100%; padding: 8px; border-radius: 6px;">
+      <button type="submit" style="margin-top: 12px; padding: 10px 20px; background-color: #00ccff; border: none; border-radius: 6px; font-weight: bold;">Enviar Avaliação</button>
+    </form>
+
+    <div class="comentarios" id="listaAvaliacoes">
+      <h3 style="margin-top: 30px;">📣 Avaliações Recentes</h3>
+      <!-- Avaliações aparecem aqui -->
+    </div>
+  </main>
+
+  <script type="module" src="js/avaliacoes.js"></script>
+  <script src="js/menu.js"></script>
+</body>
+</html>

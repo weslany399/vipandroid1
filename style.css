@@ -1,0 +1,356 @@
+/* RESET BÁSICO */ 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #030348;
+  color: #ffffff;
+  min-height: 100vh;
+  padding-top: 140px;
+  overflow-x: hidden;
+}
+
+/* TOPO - LOGO */
+.topo {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #0e0345;
+  text-align: center;
+  z-index: 1000;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-topo {
+  max-height: 70px;
+  object-fit: contain;
+}
+
+/* BARRA SUPERIOR */
+.barra-superior {
+  display: flex;
+  align-items: center;
+  background-color: #1a1a1a;
+  padding: 10px 20px;
+  position: fixed;
+  top: 80px;
+  width: 100%;
+  z-index: 999;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+
+#menuBotao {
+  font-size: 28px;
+  background: none;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-right: 15px;
+  transition: transform 0.2s;
+}
+
+#menuBotao:hover {
+  transform: scale(1.1);
+}
+
+#busca {
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: none;
+  font-size: 16px;
+  outline: none;
+}
+
+/* MENU LATERAL */
+.menu-lateral {
+  position: fixed;
+  top: 140px;
+  left: 0;
+  width: 230px;
+  background-color: #1f1f3f;
+  border-right: 2px solid #333;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+  z-index: 998;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+
+.menu-lateral.visivel {
+  transform: translateX(0);
+}
+
+.menu-lateral ul {
+  list-style: none;
+  padding: 10px 0;
+}
+
+.menu-lateral li {
+  padding: 12px 20px;
+}
+
+.menu-lateral li a {
+  color: #00ccff;
+  text-decoration: none;
+  font-size: 16px;
+  display: block;
+  transition: background 0.2s;
+}
+
+.menu-lateral li a:hover {
+  background-color: #292955;
+  border-radius: 8px;
+}
+
+/* BANNER DE OFERTAS */
+.banner-ofertas {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+.banner-ofertas img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* CONTAINER DE PRODUTOS */
+.produtos-container,
+#estoqueContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+  padding: 20px;
+  margin-left: 230px;
+}
+
+/* CARD DE PRODUTO */
+.produto-card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+  color: #000;
+  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.produto-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 10px #00ccff80;
+}
+
+.produto-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: contain;
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;
+}
+
+.produto-card h3 {
+  font-size: 15px;
+  font-weight: bold;
+  color: #000;
+  margin: 6px 10px 4px;
+}
+
+.produto-card p {
+  font-size: 13px;
+  margin: 2px 10px;
+  color: #000;
+}
+
+.produto-card .preco {
+  color: #007bff; /* azul */
+  font-weight: bold;
+}
+
+.produto-card .preco-ant {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.produto-card .preco-oferta {
+  color: #ff0000;
+  font-weight: bold;
+}
+
+.produto-card .descricao-extra {
+  color: #c2b200;
+  font-weight: bold;
+}
+
+.produto-card .frete {
+  color: #00e676;
+  font-size: 13px;
+  margin: 4px 10px 10px;
+}
+
+/* CARD ESGOTADO */
+.produto-card.esgotado::after {
+  content: "ESGOTADO";
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background-color: #ff0000;
+  color: #fff;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 6px;
+  z-index: 10;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+}
+
+/* MODAL DE IMAGEM */
+#modalImagem {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.9);
+  justify-content: center;
+  align-items: center;
+}
+
+#modalImagem.active {
+  display: flex;
+}
+
+#modalImagem img {
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 10px;
+}
+
+#modalImagem .close,
+#modalImagem .delete,
+#modalImagem .add,
+#modalImagem .arrow {
+  position: absolute;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 20px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+#modalImagem .close { top: 20px; right: 20px; }
+#modalImagem .delete { top: 20px; left: 20px; }
+#modalImagem .add    { bottom: 20px; right: 20px; }
+#modalImagem .arrow.left  { left: 20px; top: 50%; transform: translateY(-50%); }
+#modalImagem .arrow.right { right: 20px; top: 50%; transform: translateY(-50%); }
+
+/* FORMULÁRIO DE EDIÇÃO */
+.editar-formulario-produto {
+  display: none;
+  flex-direction: column;
+  background-color: #2a2a5f;
+  padding: 16px;
+  border-radius: 10px;
+  margin-top: 10px;
+  font-size: 14px;
+  gap: 8px;
+}
+
+.editar-formulario-produto.ativo {
+  display: flex;
+}
+
+.editar-formulario-produto label {
+  font-weight: bold;
+  font-size: 13px;
+  color: #00ccff;
+}
+
+.editar-formulario-produto input,
+.editar-formulario-produto textarea {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: none;
+  font-size: 14px;
+  width: 100%;
+}
+
+/* BOTÕES DE EDIÇÃO */
+.botoes-edicao {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.botoes-edicao button {
+  padding: 6px 12px;
+  font-size: 15px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #fff;
+}
+
+#btnSalvarEdicao {
+  background-color: #28a745;
+}
+
+#btnCancelarEdicao {
+  background-color: #dc3545;
+}
+
+/* RESPONSIVO */
+@media screen and (max-width: 768px) {
+  .menu-lateral {
+    width: 200px;
+  }
+
+  .produtos-container,
+  #estoqueContainer {
+    margin-left: 0;
+    padding: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+
+  .barra-superior h1 {
+    font-size: 18px;
+  }
+
+  .banner-ofertas {
+    margin-top: 16px;
+    margin-bottom: 16px;
+    border-radius: 6px;
+  }
+
+  .produto-card img {
+    height: 120px;
+  }
+
+  .produto-card h3 {
+    font-size: 14px;
+  }
+}
