@@ -3,6 +3,12 @@ import { ref, get } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-da
 
 const container = document.getElementById("favoritosContainer");
 const msgSemFavoritos = document.getElementById("msgSemFavoritos");
+const botaoVoltar = document.getElementById("botaoVoltar"); // botão de voltar
+
+// Função para voltar para a página anterior
+botaoVoltar?.addEventListener("click", () => {
+  window.history.back(); // volta uma página no histórico
+});
 
 async function carregarFavoritos() {
   const favoritos = JSON.parse(localStorage.getItem("vipandroid_favoritos") || "[]");
@@ -26,15 +32,11 @@ async function carregarFavoritos() {
 
     encontrados++;
 
-    const precoAnt = Number(produto.precoAntigo || 0).toLocaleString("pt-BR", {
-      minimumFractionDigits: 2,
-    });
-    const precoAtual = Number(produto.precoOferta || produto.preco).toLocaleString("pt-BR", {
-      minimumFractionDigits: 2,
-    });
+    const precoAnt = Number(produto.precoAntigo || 0).toLocaleString("pt-BR", { minimumFractionDigits: 2 });
+    const precoAtual = Number(produto.precoOferta || produto.preco).toLocaleString("pt-BR", { minimumFractionDigits: 2 });
 
     const img = produto.fotosURLs?.[0] || "imagens/placeholder.jpg";
-    const descricao = `${produto.armazenamento || ""}GB, RAM ${produto.memoria || ""}GB`.trim();
+    const descricao = produto.descricao || `${produto.armazenamento || ""}GB, RAM ${produto.memoria || ""}GB`.trim();
 
     const card = document.createElement("div");
     card.className = "produto-card";
@@ -51,12 +53,12 @@ async function carregarFavoritos() {
           : `<p class="preco">R$ ${precoAtual}</p>`
       }
       ${produto.freteGratis ? `<p class="frete">🚚 Frete Grátis</p>` : ""}
+      <p class="categoria">Categoria: ${produto.categoria || "Não informada"}</p>
     `;
 
+    // Ao clicar, redireciona para detalhes do produto
     card.addEventListener("click", () => {
-      if (produto.quantidade > 0) {
-        location.href = `detalhes-produto.html?id=${id}`;
-      }
+      location.href = `detalhes-produto.html?id=${id}`;
     });
 
     container.appendChild(card);

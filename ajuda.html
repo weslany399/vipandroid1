@@ -4,16 +4,69 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Ajuda - VIP Android</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="/css/style.css" />
   <style>
-    /* Ajustes específicos para a página de Ajuda */
     body {
       display: flex;
       flex-direction: column;
+      background: #0f0f1a;
+      color: #eee;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .topo {
+      background: #111;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo-topo {
+      height: 40px;
+    }
+
+    .barra-superior {
+      display: flex;
+      align-items: center;
+      background-color: #1d1d3c;
+      padding: 10px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+
+    .barra-superior h1 {
+      flex-grow: 1;
+      text-align: center;
+      font-size: 20px;
+      color: #00ccff;
+      margin: 0;
+    }
+
+    .barra-superior button {
+      background-color: #00ccff;
+      border: none;
+      border-radius: 6px;
+      color: #111;
+      padding: 6px 12px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .botao-voltar {
+      background-color: #ff4d4d;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 6px 12px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-right: 10px;
     }
 
     main {
-      margin: 120px 20px 40px; /* espaço para topo e barra */
+      margin: 120px 20px 40px;
       max-width: 800px;
       width: 100%;
       align-self: center;
@@ -21,7 +74,6 @@
       border-radius: 10px;
       padding: 24px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-      color: #eee;
     }
 
     main h2 {
@@ -62,41 +114,48 @@
   </style>
 </head>
 <body>
+  <!-- TOPO -->
   <div class="topo">
     <img src="imagens/logo.png" alt="Logo VIP Android" class="logo-topo" />
   </div>
 
+  <!-- BARRA SUPERIOR -->
   <div class="barra-superior">
-    <button id="menuBotao" class="menu">☰</button>
+    <button class="botao-voltar" onclick="location.href='index.html'">← Voltar</button>
     <h1>❓ Ajuda e Suporte</h1>
+    <button id="menuBotao" class="menu">☰</button>
   </div>
 
+  <!-- MENU LATERAL -->
   <nav class="menu-lateral oculto">
     <ul>
-      <li><a href="home.html">🏠 Voltar ao Início</a></li>
+      <li><a href="index.html">🏠 Início</a></li>
       <li><a href="contato.html">📱 Contato</a></li>
+    </ul>
   </nav>
 
+  <!-- CONTEÚDO PRINCIPAL -->
   <main>
     <h2>Como funciona a compra?</h2>
-    <p>Para comprar um celular em nossa loja é muito simples:</p>
+    <p>O processo de compra na nossa loja foi simplificado para ser rápido e prático:</p>
     <ol>
-      <li>📱 Navegue pela <strong>página inicial</strong> e clique no <strong>card do celular</strong> desejado.</li>
-      <li>🛒 Clique em <strong>“Adicionar ao Carrinho”</strong>.</li>
-      <li>🧾 Acesse o <strong>carrinho</strong> para gerenciar seus itens.</li>
-      <li>🚀 Clique em <strong>“Prosseguir com a Compra”</strong>.</li>
-      <li>📝 Preencha seus dados (nome, endereço, telefone) para finalizar o pedido.</li>
+      <li>📱 Navegue pela <strong>página inicial</strong> e clique no <strong>card do produto</strong> desejado.</li>
+      <li>🛒 Na pagina de detalhe do produto Clique no botão <strong>“Adicionar ao Carrinho”</strong>.</li>
+      <li>🚀 No carrinho clique no botão <strong>“Prosseguir com a Compra”</strong>.</li>
+      <li>📝 Na tela de solicitação de compras preencha seus dados (nome e endereço de entrega).</li>
+      <li>📤 Apos preencher clique no botão <strong>“Enviar Solicitação”</strong> para que o pedido seja enviado automaticamente para o <strong>WhatsApp da loja,</strong> apartir dai a loja faz a verificação da disponiblidade do produto e lhe da uma resposta.</li>
     </ol>
 
     <h2>Sobre a Entrega</h2>
-    <p>A entrega é <strong>100% grátis</strong> para as cidades de <strong>Brasiléia</strong> e <strong>Epitaciolândia</strong>. Você será contatado após a confirmação da compra,ou você pode buscar o andamento da entrega digitando seu <strong>CPF</strong>.</p>
+    <p>A entrega é <strong>100% grátis</strong> para as cidades de <strong>Brasiléia</strong> e <strong>Epitaciolândia</strong>. Após a solicitação, entraremos em contato para confirmar a disponibilidade do produto e ver os detalhes da entrega.</p>
 
     <h2>Funcionalidades Extras</h2>
     <ul>
-      <li>🔥 <strong>Ofertas do Dia:</strong> Promoções com descontos imperdíveis!</li>
-      <li>💬 <strong>Avaliações:</strong> Após a compra, deixe sua opinião sobre nossos produtos.</li>
-      <li>⭐ <strong>Favoritos:</strong> Salve produtos para comprar depois.</li>
-      <li>📱 <strong>Contato:</strong> 
+      <li>🔥 <strong>Ofertas do Dia:</strong> Promoções imperdíveis.</li>
+      <li>💬 <strong>Avaliações:</strong> Depois da compra, avalie nossos produtos.</li>
+      <li>⭐ <strong>Favoritos:</strong> Guarde produtos para comprar depois.</li>
+      <li>📲 <strong>compartilhar:</strong> Compartilhe o app da loja com sua familia e amigos.</li> 
+      <li>📱 <strong>Contato:</strong>
         <ul>
           <li>📸 Instagram: <strong>@vipandroid</strong></li>
           <li>📞 WhatsApp da loja</li>
@@ -107,12 +166,12 @@
     </ul>
 
     <h2>É seguro comprar?</h2>
-    <p>Sim! A plataforma VIP Android foi desenvolvida com segurança e praticidade para você comprar com confiança e rapidez.</p>
+    <p>Sim! A plataforma Vip Android foi desenvolvida com segurança e praticidade para você comprar com confiança e rapidez.</p>
 
     <h2>Dúvidas?</h2>
     <p>Se ainda tiver alguma dúvida, use a aba <a href="contato.html">Contato</a> para falar diretamente conosco.</p>
   </main>
 
-  <script src="js/menu.js" defer></script>
+  <script src="/js/menu.js" defer></script>
 </body>
 </html>

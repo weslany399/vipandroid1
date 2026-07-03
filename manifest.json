@@ -2,7 +2,7 @@
   "name": "Vip Android Venda de Smartphones",
   "short_name": "VipAndroid",
   "description": "Loja de assistência técnica e acessórios - Vip Android",
-  "start_url": "/home.html",
+  "start_url": "/index.html",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#000000",

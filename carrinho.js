@@ -1,3 +1,5 @@
+/* -------- Funções do Carrinho -------- */
+
 async function carregarCarrinho() {
   const container = document.getElementById('carrinhoContainer');
   const subtotalFinalEl = document.getElementById('subtotalFinal');
@@ -49,8 +51,8 @@ async function carregarCarrinho() {
           ${precoHTML}
           ${quantidadeHTML}
           <div class="botoes-carrinho">
-            <button onclick="confirmarRemoverUm(${i})">➖ Remover 1</button>
-            <button onclick="confirmarRemoverTudo(${i})">❌ Remover tudo</button>
+            <button onclick="mostrarModalRemoverUm(${i})">➖ Remover 1</button>
+            <button onclick="mostrarModalRemoverTudo(${i})">❌ Remover tudo</button>
           </div>
         </div>
       </div>
@@ -62,10 +64,59 @@ async function carregarCarrinho() {
   subtotalFinalEl.innerHTML = `🧾 Subtotal: R$ ${subtotal.toFixed(2)}`;
 }
 
-// Confirmação antes de remover 1 unidade
-window.confirmarRemoverUm = function(index) {
-  const confirmar = confirm("Você tem certeza que deseja remover uma unidade deste item?");
-  if (confirmar) {
+/* -------- Modal Personalizado -------- */
+
+const modalContainer = document.createElement('div');
+modalContainer.id = 'modalConfirmacao';
+modalContainer.style = `
+  display:none;
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  background: rgba(0,0,0,0.7);
+  justify-content:center;
+  align-items:center;
+  z-index:10000;
+`;
+modalContainer.innerHTML = `
+  <div style="
+    background:#fff;
+    padding:20px;
+    border-radius:10px;
+    max-width:400px;
+    width:90%;
+    text-align:center;
+    color:#000; /* Cor do texto */
+    font-family: Arial, sans-serif;
+  ">
+    <p id="modalMensagem" style="font-size:16px;margin-bottom:20px;color:#000;"></p>
+    <button id="modalConfirmar" style="margin-right:10px;padding:6px 14px;background:#00cc66;color:#fff;border:none;border-radius:5px;cursor:pointer;">Sim</button>
+    <button id="modalCancelar" style="padding:6px 14px;background:#ff3333;color:#fff;border:none;border-radius:5px;cursor:pointer;">Cancelar</button>
+  </div>
+`;
+document.body.appendChild(modalContainer);
+
+let modalCallback = null;
+
+function mostrarModal(msg, callback) {
+  document.getElementById('modalMensagem').textContent = msg;
+  modalContainer.style.display = 'flex';
+  modalCallback = callback;
+}
+
+document.getElementById('modalConfirmar').onclick = () => {
+  if (modalCallback) modalCallback();
+  modalContainer.style.display = 'none';
+};
+
+document.getElementById('modalCancelar').onclick = () => {
+  modalContainer.style.display = 'none';
+};
+
+/* -------- Funções de Remoção com Modal -------- */
+
+window.mostrarModalRemoverUm = function(index) {
+  mostrarModal("Deseja realmente remover 1 unidade deste item?", () => {
     const carrinho = JSON.parse(localStorage.getItem('vipandroid_checkout')) || [];
     if (carrinho[index].quantidade > 1) {
       carrinho[index].quantidade -= 1;
@@ -74,33 +125,34 @@ window.confirmarRemoverUm = function(index) {
     }
     localStorage.setItem('vipandroid_checkout', JSON.stringify(carrinho));
     carregarCarrinho();
-  }
+  });
 };
 
-// Confirmação antes de remover tudo
-window.confirmarRemoverTudo = function(index) {
-  const confirmar = confirm("Você tem certeza que deseja remover este item do carrinho?");
-  if (confirmar) {
+window.mostrarModalRemoverTudo = function(index) {
+  mostrarModal("Deseja realmente remover este item do carrinho?", () => {
     const carrinho = JSON.parse(localStorage.getItem('vipandroid_checkout')) || [];
     carrinho.splice(index, 1);
     localStorage.setItem('vipandroid_checkout', JSON.stringify(carrinho));
     carregarCarrinho();
-  }
+  });
 };
+
+/* -------- Checkout e Voltar -------- */
 
 window.prosseguirComACompra = function () {
   if (!window.produtosParaPagamento || window.produtosParaPagamento.length === 0) {
     alert("Nenhum produto selecionado.");
     return;
   }
-
   localStorage.setItem("vipandroid_checkout", JSON.stringify(window.produtosParaPagamento));
   window.location.href = "confirmacao.html";
 };
 
 window.voltarDetalhes = function () {
-  window.location.href = "home.html";
+  window.location.href = "index.html";
 };
+
+/* -------- Carrinho Flutuante -------- */
 
 function atualizarCarrinhoFloat() {
   const c = JSON.parse(localStorage.getItem("vipandroid_checkout") || "[]");
@@ -112,6 +164,8 @@ function atualizarCarrinhoFloat() {
     };
   }
 }
+
+/* -------- Inicialização -------- */
 
 document.addEventListener("DOMContentLoaded", () => {
   carregarCarrinho();

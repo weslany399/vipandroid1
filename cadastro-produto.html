@@ -1,199 +1,450 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cadastro de Produto - Loja VIP Android</title>
-
-  <link rel="stylesheet" href="css/style.css" />
-
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cadastro de Produto - Loja Vip Android</title>
+  <link rel="stylesheet" href="/css/style.css" />
   <style>
-    main {
-      max-width: 480px;
-      margin: 140px auto 40px;
-      background: #1d1d3c;
-      padding: 20px 24px;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,.6);
-      color: #fff;
+    :root{
+      --bg:#1d1d3c; --panel:#292955; --muted:#ccc; --accent:#00ccff;
     }
-    main h2 { text-align: center; margin-bottom: 16px; }
-    label { display: block; margin-top: 12px; margin-bottom: 6px; font-weight: 600; }
-    input, select, textarea {
-      width: 100%;
-      padding: 10px 14px;
-      border-radius: 8px;
-      border: none;
-      font-size: 15px;
-      outline: none;
-      background: #292955;
-      color: #fff;
-    }
-    textarea { resize: vertical; min-height: 80px; }
-    .small-row { display: flex; gap: 10px; }
-    .small-row input { flex: 1; }
-    button {
-      width: 100%;
-      padding: 12px;
-      border-radius: 10px;
-      border: none;
-      font-weight: 600;
-      font-size: 18px;
-      cursor: pointer;
-      margin-top: 16px;
-    }
-    .btn-salvar { background: #00ccff; color: #000; }
-    .btn-salvar:hover { background: #00b0df; }
-    .btn-voltar { background: #666; color: #fff; }
-    .btn-voltar:hover { background: #444; }
-    #mensagem {
-      margin-top: 14px;
-      text-align: center;
-      font-size: 15px;
-      color: #ff7575;
-      min-height: 22px;
-    }
-    .oferta-box {
-      background: #222857;
-      padding: 10px;
-      border-radius: 8px;
-      margin-top: 10px;
-    }
-    .cores-opcoes {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 8px;
-    }
-    .cor-opcao {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      cursor: pointer;
-      background: #2e2e5e;
-      padding: 6px 10px;
-      border-radius: 8px;
-    }
-    .cor-bolinha {
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      border: 1px solid #ccc;
-    }
-    .cores-selecionadas {
-      margin-top: 10px;
-      font-size: 14px;
-      color: #ccc;
-      font-style: italic;
-    }
-
-    /* Lista de fotos selecionadas */
-    #fotosLista {
-      margin-top: 6px;
-      font-size: 13px;
-      color: #ccc;
-    }
-    #fotosLista li {
-      list-style: disc;
-      margin-left: 20px;
-      line-height: 1.3em;
-    }
+    body{margin:0;font-family:Inter,system-ui,Arial;color:#fff;background:#0f0f1a}
+    main{max-width:1100px;margin:40px auto;padding:22px;border-radius:12px;background:var(--bg);box-shadow:0 6px 30px rgba(0,0,0,.6)}
+    h1{margin:0 0 14px;text-align:center}
+    label{display:block;margin:10px 0 6px;font-weight:600}
+    input,select,textarea,button{width:100%;padding:10px;border-radius:8px;border:none;background:var(--panel);color:#fff;font-size:15px}
+    .row{display:flex;gap:12px;flex-wrap:wrap}
+    .row>div{flex:1;min-width:180px}
+    textarea{min-height:80px;resize:vertical}
+    .small{width:auto}
+    .btns{display:flex;gap:12px;margin-top:14px}
+    .btn{flex:1;padding:12px;border-radius:10px;font-weight:700;cursor:pointer}
+    .btn-primary{background:var(--accent);color:#000}
+    .btn-ghost{background:#444}
+    #mensagem{min-height:22px;margin-top:12px;color:#ff9}
+    .oferta-box{background:#222857;padding:10px;border-radius:8px;margin-top:8px}
+    .cores-opcoes{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+    .cor-opcao{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:8px;background:#243;cursor:pointer}
+    .cor-bolinha{width:18px;height:18px;border-radius:50%;border:1px solid #ccc}
+    .categoria-bloco{display:none;margin-top:12px;padding:12px;border-radius:8px;background:#111126}
+    .midias-lista{margin-top:8px;color:var(--muted);font-size:13px}
+    @media (max-width:720px){main{margin:18px;padding:16px}}
   </style>
 </head>
 <body>
-  <div class="topo">
-    <img src="imagens/logo.png" alt="Logo VIP Android" class="logo-topo" />
-  </div>
-
   <main>
-    <h2>Cadastro de Celular</h2>
-    <form id="formCadastro">
-      <!-- Dados do produto -->
-      <label for="nome">Nome do produto</label>
-      <input id="nome" required placeholder="Ex: Galaxy S25" />
+    <h1>Cadastro de Produto — Vip Android</h1>
 
-      <label for="marca">Marca</label>
-      <input id="marca" required placeholder="Ex: Samsung" />
-
-      <label for="estado">Estado</label>
-      <select id="estado" required>
-        <option value="" disabled selected>Selecione</option>
-        <option value="novo">Novo</option>
-        <option value="seminovo">Seminovo</option>
-        <option value="usado">Usado</option>
+    <form id="formCadastro" autocomplete="off">
+      <!-- Categoria primeiro -->
+      <label for="categoria">Categoria *</label>
+      <select id="categoria" required>
+        <option value="" disabled selected>Selecione a categoria</option>
+        <option value="celular">Celular</option>
+        <option value="notebook">Notebook</option>
+        <option value="tablet">Tablet</option>
+        <option value="fone">Fone de ouvido</option>
+        <option value="caixaSom">Caixa de som</option>
+        <option value="teclado">Teclado</option>
+        <option value="mouse">Mouse</option>
+        <option value="controle">Controle de videogame</option>
+        <option value="capinha">Capinha / Capa</option>
+        <option value="pelicula">Película</option>
+        <option value="carregador">Carregador</option>
+        <option value="armazenamento">Pen drive / HD / SSD</option>
+        <option value="fonteCabo">Fontes e Cabos de Energia</option>
+        <option value="monitor">Monitores e Suportes</option>
+        <option value="cartaoMemoria">Cartão de memória</option>
+        <option value="microfone">Microfone</option>
+        <option value="ringlight">Ring Light</option>
+        <option value="tripe">Tripé</option>
+        <option value="outros">Outros</option>
       </select>
 
-      <label for="preco">Preço (R$)</label>
-      <input type="number" id="preco" required min="1" step="0.01" placeholder="Ex: 3299" />
-
-      <label><input type="checkbox" id="ofertaDia" /> Marcar como Oferta do Dia</label>
-      <div id="ofertaBox" class="oferta-box" style="display:none;">
-        <label for="precoAntigo">Preço antigo (R$)</label>
-        <input type="number" id="precoAntigo" step="0.01" />
-        <label for="precoOferta">Preço oferta (R$)</label>
-        <input type="number" id="precoOferta" step="0.01" />
-      </div>
-
-      <label><input type="checkbox" id="freteGratis" /> Oferecer Frete Grátis</label>
-
-      <label for="quantidade">Quantidade em estoque</label>
-      <input type="number" id="quantidade" required min="0" placeholder="Ex: 5" />
-
-      <label for="status">Status</label>
-      <select id="status" required>
-        <option value="disponivel">Disponível</option>
-        <option value="reservado">Reservado</option>
-      </select>
-
-      <div class="small-row">
+      <!-- Obrigatórios fixos -->
+      <div class="row" style="margin-top:8px">
         <div>
-          <label for="armazenamento">Armazenamento</label>
-          <input type="number" id="armazenamento" placeholder="GB" />
+          <label for="nome">Nome do produto *</label>
+          <input id="nome" type="text" placeholder="Ex: selecione a categoria" required />
         </div>
         <div>
-          <label for="memoria">RAM</label>
-          <input type="number" id="memoria" placeholder="GB" />
+          <label for="marca">Marca / Fabricante *</label>
+          <input id="marca" type="text" placeholder="Ex: selecione a categoria" required/>
         </div>
       </div>
 
-      <div class="small-row">
+      <div class="row">
         <div>
-          <label for="tela">Tela</label>
-          <input type="number" id="tela" placeholder="6.5" step="0.1" />
+          <label for="preco">Valor (R$) *</label>
+          <input id="preco" type="number" min="0" step="0.01" placeholder="Ex: selecione a categoria" required />
         </div>
         <div>
-          <label for="bateria">Bateria</label>
-          <input type="number" id="bateria" placeholder="mAh" />
+          <label for="quantidade">Quantidade *</label>
+          <input id="quantidade" type="number" min="0" step="1" placeholder="Ex: selecione a categoria" required />
         </div>
       </div>
 
-      <label for="cameraTraseira">Câmera traseira</label>
-      <input id="cameraTraseira" placeholder="Ex: 50+12+10" />
-
-      <label for="cameraFrontal">Câmera frontal</label>
-      <input id="cameraFrontal" type="number" placeholder="MP" />
-
-      <!-- Bloco de CORES -->
-      <label>Cores disponíveis</label>
+      <!-- Cores (dinâmico via JS) -->
+      <label>Cores disponíveis (marque pelo menos 1) *</label>
       <div class="cores-opcoes" id="coresOpcoes"></div>
-      <div class="cores-selecionadas" id="coresSelecionadas">Nenhuma cor selecionada</div>
+      <div style="margin-top:6px;color:var(--muted)" id="coresSelecionadas">Nenhuma cor selecionada</div>
 
-      <!-- DESCRIÇÃO -->
-      <label for="descricao">Descrição extra (opcional)</label>
-      <textarea id="descricao" placeholder="Detalhes adicionais..."></textarea>
+      <!-- Oferta -->
+      <label style="margin-top:10px"><input id="ofertaDia" type="checkbox" /> Marcar como Oferta do Dia</label>
+      <div id="ofertaBox" class="oferta-box" style="display:none">
+        <label for="precoAntigo">Preço antigo (R$)</label>
+        <input id="precoAntigo" type="number" step="0.01" placeholder="Ex: 3499.00" />
+        <label for="precoOferta">Preço oferta (R$)</label>
+        <input id="precoOferta" type="number" step="0.01" placeholder="Ex: 2999.00" />
+        <small style="color:var(--muted)">No front-end (CSS) você pode riscar o preço antigo e destacar o atual em vermelho.</small>
+      </div>
 
-      <!-- FOTOS -->
-      <label for="fotos">Fotos do produto (várias)</label>
-      <input type="file" id="fotos" accept="image/*" multiple required />
-      <ul id="fotosLista"></ul>
+      <!-- Status / Estado -->
+      <div class="row" style="margin-top:10px">
+        <div>
+          <label for="estado">Estado</label>
+          <select id="estado">
+            <option value="" selected>Selecione</option>
+            <option value="novo">Novo</option>
+            <option value="seminovo">Seminovo</option>
+            <option value="usado">Usado</option>
+          </select>
+        </div>
+        <div>
+          <label for="status">Status</label>
+          <select id="status">
+            <option value="disponivel">Disponível</option>
+            <option value="reservado">Reservado</option>
+          </select>
+        </div>
+      </div>
 
-      <button type="submit" class="btn-salvar">Cadastrar Produto</button>
-      <button type="button" class="btn-voltar" onclick="location.href='dashboard-loja.html'">← Voltar ao Painel</button>
+      <!-- CELULAR -->
+      <section class="categoria-bloco" data-cat="celular" id="cat-celular">
+        <h3 style="margin:6px 0">Campos para — Celular</h3>
+        <div class="row">
+          <div><label for="armazenamento">Armazenamento</label><input id="armazenamento" placeholder="Ex: 256GB" /></div>
+          <div><label for="memoria">RAM</label><input id="memoria" placeholder="Ex: 8GB" /></div>
+        </div>
+        <div class="row">
+          <div><label for="tela">Tela</label><input id="tela" placeholder="Ex: 6.8'' AMOLED" /></div>
+          <div><label for="bateria">Bateria</label><input id="bateria" placeholder="Ex: 5000mAh" /></div>
+        </div>
+        <label for="cameraTraseira">Câmera traseira</label>
+        <input id="cameraTraseira" placeholder="Ex: 50+12+10MP" />
+        <label for="cameraFrontal">Câmera frontal</label>
+        <input id="cameraFrontal" placeholder="Ex: 12MP" />
+        <label for="sistemaOperacional">Sistema Operacional (opcional)</label>
+        <input id="sistemaOperacional" placeholder="Ex: Android 14" />
+        <div class="row">
+          <div><label for="modeloCPU">Modelo da CPU (opcional)</label><input id="modeloCPU" placeholder="Ex: Snapdragon 8 Gen 3" /></div>
+          <div><label for="velocidadeCPU">Velocidade CPU (opcional)</label><input id="velocidadeCPU" placeholder="Ex: 3.2GHz" /></div>
+        </div>
+        <label for="descricao">Descrição extra (opcional)</label>
+        <textarea id="descricao" placeholder="Detalhes adicionais..."></textarea>
+      </section>
+
+      <!-- NOTEBOOK -->
+      <section class="categoria-bloco" data-cat="notebook" id="cat-notebook">
+        <h3 style="margin:6px 0">Campos para — Notebook</h3>
+        <div class="row">
+          <div><label for="nb-cpu">Processador</label><input id="nb-cpu" placeholder="Ex: Intel Core i7 13ª geração" /></div>
+          <div><label for="nb-ram">Memória RAM (GB)</label><input id="nb-ram" type="number" placeholder="Ex: 16" /></div>
+        </div>
+        <div class="row">
+          <div><label for="nb-storage">Armazenamento</label><input id="nb-storage" placeholder="Ex: SSD 512GB NVMe" /></div>
+          <div><label for="nb-gpu">Placa de vídeo</label><input id="nb-gpu" placeholder="Ex: RTX 3050 4GB" /></div>
+        </div>
+        <div class="row">
+          <div><label for="nb-tela">Tela</label><input id="nb-tela" placeholder="Ex: 15.6\" Full HD IPS" /></div>
+          <div><label for="nb-teclado">Teclado</label><input id="nb-teclado" placeholder="Ex: Retroiluminado" /></div>
+        </div>
+        <label for="nb-conex">Conexões</label>
+        <input id="nb-conex" placeholder="Ex: 3x USB, HDMI, Wi-Fi 6, BT 5.2" />
+        <div class="row">
+          <div><label for="nb-audio">Áudio</label><input id="nb-audio" placeholder="Ex: Dolby Atmos" /></div>
+          <div><label for="nb-bateria">Bateria</label><input id="nb-bateria" placeholder="Ex: Até 10-12h" /></div>
+        </div>
+        <label for="nb-camera">Câmera</label>
+        <input id="nb-camera" placeholder="Ex: 720p HD" />
+        <label for="descricao">Descrição extra (opcional)</label>
+        <textarea id="descricao" placeholder="Ex: Ideal para estudos, trabalho, jogos leves"></textarea>
+      </section>
+
+      <!-- TABLET -->
+      <section class="categoria-bloco" data-cat="tablet" id="cat-tablet">
+        <h3 style="margin:6px 0">Campos para — Tablet</h3>
+        <div class="row">
+          <div><label for="tab-tela">Tela</label><input id="tab-tela" placeholder='Ex: 10.5" TFT 1920x1200' /></div>
+          <div><label for="tab-cpu">Processador</label><input id="tab-cpu" placeholder="Ex: Octa-Core 2.0 GHz" /></div>
+        </div>
+        <div class="row">
+          <div><label for="tab-ram">RAM</label><input id="tab-ram" placeholder="Ex: 4GB" /></div>
+          <div><label for="tab-storage">Armazenamento</label><input id="tab-storage" placeholder="Ex: 64GB (expansível)" /></div>
+        </div>
+        <div class="row">
+          <div><label for="tab-bateria">Bateria</label><input id="tab-bateria" placeholder="Ex: 7040mAh – até 12h" /></div>
+          <div><label for="tab-conec">Conectividade</label><input id="tab-conec" placeholder="Ex: Wi-Fi 5GHz, 4G LTE, BT 5.0" /></div>
+        </div>
+        <label for="tab-cameraT">Câmera Traseira</label>
+        <input id="tab-cameraT" placeholder="Ex: 16MP " />
+        <label for="tab-cameraF">Câmera Frontal</label>
+        <input id="tab-cameraF" placeholder="Ex: 8MP " />
+        <label for="tab-acess">Acessórios inclusos</label>
+        <input id="tab-acess" placeholder="Ex: Carregador 15W, Cabo USB-C" />
+        <label for="descricao">Descrição extra (opcional)</label>
+        <textarea id="descricao" placeholder="Suporte S-Pen, desbloqueio facial..."></textarea>
+      </section>
+
+      <!-- FONE -->
+      <section class="categoria-bloco" data-cat="fone" id="cat-fone">
+        <h3 style="margin:6px 0">Campos para — Fone de ouvido</h3>
+        <div class="row">
+          <div><label for="fone-tipo">Tipo</label><input id="fone-tipo" placeholder="Ex: Over-ear / In-ear / TWS" /></div>
+          <div><label for="fone-conec">Conectividade</label><input id="fone-conec" placeholder="Ex: Bluetooth 5.0 / P2" /></div>
+        </div>
+        <label for="fone-audio">Qualidade de áudio</label>
+        <input id="fone-audio" placeholder="Ex: Som Pure Bass JBL" />
+        <label for="fone-mic">Microfone</label>
+        <input id="fone-mic" placeholder="Ex: Cancelamento de ruído" />
+        <div class="row">
+          <div><label for="fone-batt">Bateria</label><input id="fone-batt" placeholder="Ex: Até 40h" /></div>
+          <div><label for="fone-peso">Peso</label><input id="fone-peso" placeholder="Ex: 160g" /></div>
+        </div>
+        <label for="fone-itens">Itens inclusos</label>
+        <input id="fone-itens" placeholder="Ex: Cabo USB-C, manual" />
+        <label for="descricao">Descrição extra (opcional)</label>
+        <textarea id="descricao" placeholder="Detalhes adicionais..."></textarea>
+      </section>
+
+      <!-- CAIXA DE SOM -->
+      <section class="categoria-bloco" data-cat="caixaSom" id="cat-caixasom">
+        <h3 style="margin:6px 0">Campos para — Caixa de som</h3>
+        <div class="row">
+          <div><label for="som-modelo">Modelo</label><input id="som-modelo" placeholder="Ex: X200 PartyBox" /></div>
+          <div><label for="som-pot">Potência (W)</label><input id="som-pot" placeholder="Ex: 20W" /></div>
+        </div>
+        <label for="som-tipo">Tipo de som</label>
+        <input id="som-tipo" placeholder="Ex: Estéreo / Mono" />
+        <label for="som-batt">Bateria</label>
+        <input id="som-batt" placeholder="Ex: 5000mAh – até 12h" />
+        <label for="som-conec">Conectividade</label>
+        <input id="som-conec" placeholder="Ex: Bluetooth, USB, P2, cartão SD" />
+        <label for="descricao">Descrição extra (opcional)</label>
+        <textarea id="descricao" placeholder="Ex: IPX7, LED, rádio FM..."></textarea>
+      </section>
+
+      <!-- TECLADO -->
+      <section class="categoria-bloco" data-cat="teclado" id="cat-teclado">
+        <h3 style="margin:6px 0">Campos para — Teclado</h3>
+        <label for="tecl-modelo">Modelo</label>
+        <input id="tecl-modelo" placeholder="Ex: G213 / K120" />
+        <label for="tecl-tipo">Tipo</label>
+        <input id="tecl-tipo" placeholder="Ex: Mecânico / Membrana" />
+        <label for="tecl-layout">Layout</label>
+        <input id="tecl-layout" placeholder="Ex: ABNT2 / US Intl" />
+        <label for="tecl-back">Backlight / Iluminação</label>
+        <input id="tecl-back" placeholder="Ex: RGB" />
+        <label for="descricao">Descrição extra (opcional)</label>
+        <textarea id="descricao" placeholder="Detalhes adicionais..."></textarea>
+      </section>
+
+      <!-- MOUSE -->
+      <section class="categoria-bloco" data-cat="mouse" id="cat-mouse">
+        <h3 style="margin:6px 0">Campos para — Mouse</h3>
+        <label for="mouse-modelo">Modelo</label>
+        <input id="mouse-modelo" placeholder="Ex: DeathAdder / M100" />
+        <label for="mouse-tipo">Tipo</label>
+        <input id="mouse-tipo" placeholder="Ex: Óptico / Laser / Wireless" />
+        <div class="row">
+          <div><label for="mouse-dpi">DPI / Resolução</label><input id="mouse-dpi" placeholder="Ex: 800 / 1600 / 2400" /></div>
+          <div><label for="mouse-botoes">Nº de botões</label><input id="mouse-botoes" placeholder="Ex: 6" /></div>
+        </div>
+        <label for="descricao">Descrição extra (opcional)</label>
+        <textarea id="descricao" placeholder="Detalhes adicionais..."></textarea>
+      </section>
+
+      <!-- CONTROLE -->
+      <section class="categoria-bloco" data-cat="controle" id="cat-controle">
+        <h3 style="margin:6px 0">Campos para — Controle de videogame</h3>
+        <label for="ctl-modelo">Modelo</label>
+        <input id="ctl-modelo" placeholder="Ex: DualShock 4 / Xbox Series" />
+        <label for="ctl-tipo">Tipo</label>
+        <input id="ctl-tipo" placeholder="Ex: Wireless / Com fio" />
+        <label for="ctl-compat">Compatibilidade</label>
+        <input id="ctl-compat" placeholder="Ex: PS4 / Xbox / PC / Android" />
+        <label for="descricao">Descrição extra (opcional)</label>
+        <textarea id="descricao" placeholder="Detalhes adicionais..."></textarea>
+      </section>
+
+      <!-- CAPINHA -->
+      <section class="categoria-bloco" data-cat="capinha" id="cat-capinha">
+        <h3 style="margin:6px 0">Campos para — Capinha / Capa</h3>
+        <label for="cap-compat">Modelo compatível</label>
+        <input id="cap-compat" placeholder="Ex: iPhone 14 / Galaxy S25" />
+        <label for="cap-material">Material</label>
+        <input id="cap-material" placeholder="Ex: Silicone / TPU / Couro" />
+        <label for="cap-recursos">Recursos</label>
+        <input id="cap-recursos" placeholder="Ex: Anti-impacto / Kickstand" />
+        <label for="descricao">Descrição extra (opcional)</label>
+        <textarea id="descricao" placeholder="Detalhes adicionais..."></textarea>
+      </section>
+
+      <!-- PELÍCULA -->
+      <section class="categoria-bloco" data-cat="pelicula" id="cat-pelicula">
+        <h3 style="margin:6px 0">Campos para — Película</h3>
+        <label for="pel-modelo">Modelo compatível</label>
+        <input id="pel-modelo" placeholder="Ex: iPhone 14 / Galaxy S25" />
+        <label for="pel-tipo">Tipo</label>
+        <input id="pel-tipo" placeholder="Ex: Vidro temperado 0.33mm 9H" />
+        <label for="pel-recursos">Recursos</label>
+        <input id="pel-recursos" placeholder="Ex: Oleofóbica / Anti-reflexo" />
+        <label for="descricao">Descrição extra (opcional)</label>
+        <textarea id="descricao" placeholder="Detalhes adicionais..."></textarea>
+      </section>
+
+      <!-- CARREGADOR -->
+      <section class="categoria-bloco" data-cat="carregador" id="cat-carregador">
+        <h3 style="margin:6px 0">Campos para — Carregador</h3>
+        <label for="chg-modelo">Modelo</label>
+        <input id="chg-modelo" placeholder="Ex: EP-TA20 / MD813LL/A" />
+        <div class="row">
+          <div><label for="chg-tipo">Tipo</label><input id="chg-tipo" placeholder="Ex: USB-C / Lightning / Wireless" /></div>
+          <div><label for="chg-pot">Potência</label><input id="chg-pot" placeholder="Ex: 20W / 30W" /></div>
+        </div>
+        <label for="chg-comp">Compatibilidade</label>
+        <input id="chg-comp" placeholder="Ex: iPhone / Samsung / Xiaomi" />
+        <label for="descricao">Descrição extra (opcional)</label>
+        <textarea id="descricao" placeholder="Detalhes adicionais..."></textarea>
+      </section>
+
+      <!-- (Pen, HD, SSD) -->
+      <section class="categoria-bloco" data-cat="pendrive" id="cat-pendrive">
+        <h3 style="margin:6px 0">Campos para — Pen drive / HD / SSD</h3>
+        <div class="row">
+          <div><label for="arm-cap">Capacidade</label><input id="arm-cap" placeholder="Ex: 128GB / 1TB" /></div>
+          <div><label for="arm-interface">Interface</label><input id="arm-interface" placeholder="Ex: USB 3.0 / NVMe" /></div>
+        </div>
+        <label for="arm-vel">Velocidade leitura/gravação</label>
+        <input id="arm-vel" placeholder="Ex: até 130 MB/s" />
+        <label for="arm-seg">Segurança</label>
+        <input id="arm-seg" placeholder="Ex: Encriptação / Proteção por senha" />
+        <label for="descricao">Descrição extra (opcional)</label>
+        <textarea id="descricao" placeholder="Detalhes adicionais..."></textarea>
+      </section>
+
+      <!-- FONTES E CABOS -->
+      <section class="categoria-bloco" data-cat="fonteCabo" id="cat-fonteCabo">
+        <h3 style="margin:6px 0">Campos para — Fontes & Cabos</h3>
+        <label for="fc-entrada">Entrada</label>
+        <input id="fc-entrada" placeholder="Ex: 100-240V ~ 50/60Hz" />
+        <label for="fc-saida">Saída / Potência</label>
+        <input id="fc-saida" placeholder="Ex: 19.5V 3.34A (65W) / 5V 2A" />
+        <label for="fc-conector">Conector</label>
+        <input id="fc-conector" placeholder="Ex: Pino fino / USB-C PD" />
+        <label for="descricao">Descrição extra (opcional)</label>
+        <textarea id="descricao" placeholder="Detalhes adicionais..."></textarea>
+      </section>
+
+      <!-- MONITOR -->
+      <section class="categoria-bloco" data-cat="monitor" id="cat-monitor">
+        <h3 style="margin:6px 0">Campos para — Monitor / Suporte</h3>
+        <div class="row">
+          <div><label for="mon-tam">Tamanho tela</label><input id="mon-tam" placeholder="Ex: 24\"" /></div>
+          <div><label for="mon-res">Resolução</label><input id="mon-res" placeholder="Ex: Full HD / 4K" /></div>
+        </div>
+        <div class="row">
+          <div><label for="mon-refresh">Taxa de atualização</label><input id="mon-refresh" placeholder="Ex: 60Hz / 144Hz" /></div>
+          <div><label for="mon-painel">Tipo de painel</label><input id="mon-painel" placeholder="Ex: IPS / VA / TN" /></div>
+        </div>
+        <label for="mon-rec">Recursos</label>
+        <input id="mon-rec" placeholder="Ex: Ajuste de altura, VESA" />
+        <label for="descricao">Descrição extra (opcional)</label>
+        <textarea id="descricao" placeholder="Detalhes adicionais..."></textarea>
+      </section>
+
+      <!-- CARTAO DE MEMORIA -->
+      <section class="categoria-bloco" data-cat="cartaoMemoria" id="cat-cartao">
+        <h3 style="margin:6px 0">Campos para — Cartão de Memória</h3>
+        <div class="row">
+          <div><label for="cm-cap">Capacidade</label><input id="cm-cap" placeholder="Ex: 64GB / 128GB" /></div>
+          <div><label for="cm-vel">Classe / Velocidade</label><input id="cm-vel" placeholder="Ex: Class 10 / UHS-I" /></div>
+        </div>
+        <label for="cm-comp">Compatibilidade</label>
+        <input id="cm-comp" placeholder="Ex: Android, câmeras, GoPro" />
+        <label for="descricao">Descrição extra (opcional)</label>
+        <textarea id="descricao" placeholder="Detalhes adicionais..."></textarea>
+      </section>
+
+      <!-- MICROFONE -->
+      <section class="categoria-bloco" data-cat="microfone" id="cat-microfone">
+        <h3 style="margin:6px 0">Campos para — Microfone</h3>
+        <label for="mic-model">Modelo</label>
+        <input id="mic-model" placeholder="Ex: BM800 / MV7" />
+        <label for="mic-tipo">Tipo</label>
+        <input id="mic-tipo" placeholder="Ex: Condensador / Dinâmico / USB / XLR" />
+        <label for="mic-conec">Conectividade</label>
+        <input id="mic-conec" placeholder="Ex: USB / XLR / P2 / Bluetooth" />
+        <label for="descricao">Descrição extra (opcional)</label>
+        <textarea id="descricao" placeholder="Detalhes adicionais..."></textarea>
+      </section>
+
+      <!-- RING LIGHT -->
+      <section class="categoria-bloco" data-cat="ringlight" id="cat-ringlight">
+        <h3 style="margin:6px 0">Campos para — Ring Light</h3>
+        <label for="rl-tam">Diâmetro / Tamanho</label>
+        <input id="rl-tam" placeholder="Ex: 10\", 18\"" />
+        <label for="rl-temp">Temperatura de cor</label>
+        <input id="rl-temp" placeholder="Ex: Quente / Neutra / Fria" />
+        <label for="rl-acess">Acessórios inclusos</label>
+        <input id="rl-acess" placeholder="Ex: Tripé, controle remoto" />
+        <label for="descricao">Descrição extra (opcional)</label>
+        <textarea id="descricao" placeholder="Detalhes adicionais..."></textarea>
+      </section>
+
+      <!-- TRIPÉ -->
+      <section class="categoria-bloco" data-cat="tripe" id="cat-tripe">
+        <h3 style="margin:6px 0">Campos para — Tripé</h3>
+        <label for="trp-alt">Altura máxima/min</label>
+        <input id="trp-alt" placeholder="Ex: 35cm a 100cm" />
+        <label for="trp-material">Material</label>
+        <input id="trp-material" placeholder="Ex: Alumínio" />
+        <label for="trp-comp">Compatibilidade</label>
+        <input id="trp-comp" placeholder="Ex: Smartphones até 85mm" />
+        <label for="descricao">Descrição extra (opcional)</label>
+        <textarea id="descricao" placeholder="Detalhes adicionais..."></textarea>
+      </section>
+
+      <!-- OUTROS -->
+      <section class="categoria-bloco" data-cat="outros" id="cat-outros">
+        <h3 style="margin:6px 0">Campos para — Outros</h3>
+        <label for="out-modelo">Modelo / Código</label>
+        <input id="out-modelo" placeholder="Ex: ABC-123" />
+        <label for="out-cat">Categoria (ex: fone, carregador)</label>
+        <input id="out-cat" placeholder="Ex: Acessório" />
+        <label for="out-espec">Especificações técnicas</label>
+        <textarea id="out-espec" placeholder="Dimensões, material, compatibilidade, etc."></textarea>
+        <label for="descricao">Descrição extra (opcional)</label>
+        <textarea id="descricao" placeholder="Detalhes adicionais..."></textarea>
+      </section>
+
+      <!-- MIDIAS obrigatórias -->
+      <label for="midias" style="margin-top:12px">Fotos & Vídeos (mínimo 1) *</label>
+      <input id="midias" type="file" accept="image/*,video/*" multiple required />
+      <div class="midias-lista" id="midiasLista">Nenhum arquivo selecionado</div>
+
+      <!-- Ações -->
+      <div class="btns">
+        <button type="submit" class="btn btn-primary">Cadastrar Produto</button>
+        <button type="button" class="btn btn-ghost" onclick="location.href='dashboard-loja.html'">← Voltar</button>
+      </div>
+
+      <div id="mensagem"></div>
     </form>
-
-    <p id="mensagem"></p>
   </main>
 
-  <script type="module" src="js/cadastro-produto.js"></script>
+  <!-- carrega o js (vou enviar o JS completo em seguida) -->
+  <script type="module" src="/js/cadastro-produto.js"></script>
 </body>
 </html>

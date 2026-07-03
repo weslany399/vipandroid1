@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="configuracoes">Configurações - Vip Android</title>
+  <link rel="stylesheet" href="/css/style.css?v=4" />
+  <style>
+    /* Ajustes de layout, sem cores nem fontes */
+    body {
+      padding-top: 80px;
+      transition: all 0.3s ease;
+    }
+
+    .topo {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 80px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+
+    main {
+      max-width: 850px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .config-section {
+      padding: 15px 18px;
+      margin-bottom: 18px;
+    }
+
+    .config-option {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 12px 0;
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 15px;
+    }
+
+    .voltar {
+      text-align: center;
+      margin: 30px 0;
+    }
+  </style>
+</head>
+<body class="pagina-config">
+
+  <div class="topo" data-i18n="configuracoes">Configurações</div>
+
+  <main>
+
+    <!-- 1️⃣ Personalização -->
+    <h2 data-i18n="personalizacao">Personalização</h2>
+    <div class="config-section">
+      <div class="config-option">
+        <label data-i18n="tema">Tema do App:</label>
+        <div class="radio-group">
+          <label><input type="radio" name="tema" value="claro"><span data-i18n="claro">Claro</span></label>
+          <label><input type="radio" name="tema" value="escuro"><span data-i18n="escuro">Escuro</span></label>
+          <label><input type="radio" name="tema" value="automatico"><span data-i18n="automatico">Automático</span></label>
+        </div>
+      </div>
+      <div class="config-option">
+        <label data-i18n="fonte">Fonte do App:</label>
+        <div class="radio-group">
+          <label><input type="radio" name="fonte" value="normal"><span data-i18n="normal">Normal</span></label>
+          <label><input type="radio" name="fonte" value="grande"><span data-i18n="grande">Grande</span></label>
+          <label><input type="radio" name="fonte" value="estilo"><span data-i18n="diferenciada">Diferenciada</span></label>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2️⃣ Idioma -->
+    <h2 data-i18n="idioma">Idioma</h2>
+    <div class="config-section">
+      <div class="config-option">
+        <label data-i18n="idioma">Idioma do App:</label>
+        <select id="idiomaApp">
+          <option value="pt" data-i18n="pt">Português</option>
+          <option value="en" data-i18n="en">English</option>
+          <option value="es" data-i18n="es">Español</option>
+          <option value="fr" data-i18n="fr">Français</option>
+          <option value="de" data-i18n="de">Deutsch</option>
+          <option value="it" data-i18n="it">Italiano</option>
+          <option value="ja" data-i18n="ja">日本語 (Japonês)</option>
+          <option value="zh" data-i18n="zh">中文 (Chinês)</option>
+          <option value="ar" data-i18n="ar">العربية (Árabe)</option>
+          <option value="ru" data-i18n="ru">Русский (Russo)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- 3️⃣ Notificações -->
+    <h2 data-i18n="notificacoes">Notificações</h2>
+    <div class="config-section">
+      <div class="config-option">
+        <label data-i18n="atualizacoes_pedidos">Atualizações de pedidos:</label>
+        <div class="radio-group">
+          <label><input type="radio" name="notificacao" value="push"><span data-i18n="push">Push</span></label>
+          <label><input type="radio" name="notificacao" value="email"><span data-i18n="email">E-mail</span></label>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4️⃣ Sobre -->
+    <h2 data-i18n="sobre">Sobre o App</h2>
+    <div class="config-section">
+      <p><span data-i18n="versao_atual">Versão atual:</span> 1.0.0</p>
+      <p><a href="#" data-i18n="termos_privacidade">Termos de uso e política de privacidade</a></p>
+      <p><a href="#" data-i18n="avaliar_app">Avaliar o app</a></p>
+      <p><a href="#" data-i18n="contato_suporte">Contato com suporte</a></p>
+    </div>
+
+    <!-- Botão voltar -->
+    <div class="voltar">
+      <a href="index.html" data-i18n="voltar">⬅ Voltar ao Início</a>
+    </div>
+
+  </main>
+
+  <!-- JS externo -->
+  <script src="/js/global.js" defer></script>
+
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Andamento da Entrega - Vip Android</title>
+  <title data-i18n="title_entrega">Andamento da Entrega - Vip Android</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     body {
@@ -26,7 +26,6 @@
       text-shadow: 0 0 10px rgba(0,0,0,0.3);
     }
 
-    /* Botão Voltar */
     #btnVoltar {
       background: #004d99;
       border: none;
@@ -111,7 +110,6 @@
       word-wrap: break-word;
     }
 
-    /* Status destacado e chamativo */
     .status-entrega {
       font-size: 28px;
       font-weight: 900;
@@ -168,25 +166,33 @@
   </style>
 </head>
 <body>
-  <h1>Consulta de Andamento da Entrega</h1>
+  <h1 data-i18n="consulta_entrega">Consulta de Andamento da Entrega</h1>
 
-  <button id="btnVoltar" onclick="window.location.href='home.html'">← Voltar para o inicio</button>
+  <button id="btnVoltar" onclick="window.location.href='index.html'" data-i18n="voltar_inicio">
+    ← Voltar para o início
+  </button>
 
   <form id="formCPF" autocomplete="off">
-    <label for="cpfInput">Digite seu CPF:</label>
-    <input type="text" id="cpfInput" name="cpfInput" placeholder="Apenas números" maxlength="11" pattern="\d{11}" required />
-    <button type="submit">Consultar</button>
+    <label for="cpfInput" data-i18n="digite_cpf">Digite seu CPF:</label>
+    <input type="text" id="cpfInput" name="cpfInput" placeholder="Apenas números" data-i18n-placeholder="cpf_placeholder" maxlength="11" pattern="\d{11}" required />
+    <button type="submit" data-i18n="consultar">Consultar</button>
   </form>
 
-  <div id="resultado" class="resultado" style="display:none;"></div>
-  <div id="erro" class="erro" style="display:none;"></div>
-
-  <div class="contato" id="contato" style="display:none;">
-    <p>Em caso de dúvidas, entre em contato com:</p>
-    <a href="https://wa.me/556892451530" target="_blank" class="btn-contato">Contato da Loja: +55 68 9245-1530</a>
-    <a href="https://wa.me/556899147048" target="_blank" class="btn-contato">Número do Proprietário: +55 68 9914-7048</a>
+  <div id="resultado" class="resultado" style="display:none;">
+    <h2 data-i18n="resultado_titulo">Resultado da Consulta</h2>
+    <p class="campo-info" data-i18n="dados_entrega"></p>
+    <p class="status-entrega" data-i18n="status_entrega"></p>
   </div>
 
-  <script type="module" src="js/andamento.js"></script>
+  <div id="erro" class="erro" style="display:none;" data-i18n="erro_consulta">Erro: CPF não encontrado ou inválido.</div>
+
+  <div class="contato" id="contato" style="display:none;">
+    <p data-i18n="duvidas_contato">Em caso de dúvidas, entre em contato com:</p>
+    <a href="https://wa.me/556892451530" target="_blank" class="btn-contato" data-i18n="contato_loja">Contato da Loja: +55 68 9245-1530</a>
+    <a href="https://wa.me/556899147048" target="_blank" class="btn-contato" data-i18n="contato_proprietario">Número do Proprietário: +55 68 9914-7048</a>
+  </div>
+
+  <script src="/js/global.js" defer></script>
+  <script type="module" src="/js/andamento.js"></script>
 </body>
 </html>

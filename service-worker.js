@@ -1,26 +1,28 @@
 // --- CACHE CONFIGURATION ---
-const CACHE_NAME = 'vipandroid-cache-v2';
+const CACHE_NAME = 'vipandroid-cache-v3';
 const urlsToCache = [
-  '/',
+  '/',                 // index.html
   '/index.html',
-  '/home.html',
   '/vendidos.html',
   '/js/vendidos.js',
-  '/css/style.css',
   '/js/home.js',
+  '/css/style.css',
   '/favicon.ico',
   '/icons/icon-192.png',
   '/icons/icon-512.png',
   '/imagens/logo.png'
 ];
 
+// --- INSTALL ---
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))
+    caches.open(CACHE_NAME)
+      .then(cache => cache.addAll(urlsToCache))
   );
-  self.skipWaiting(); // Garante que a nova versão seja ativada imediatamente
+  self.skipWaiting();
 });
 
+// --- ACTIVATE ---
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(cacheNames =>
@@ -31,18 +33,36 @@ self.addEventListener('activate', event => {
       )
     )
   );
-  self.clients.claim(); // Garante controle imediato
+  self.clients.claim();
 });
 
+// --- FETCH: CACHE COM NETWORK UPDATE (corrigido e otimizado) ---
 self.addEventListener('fetch', event => {
+  // Ignora requisições que não sejam GET (ex: POST para Firebase)
+  if (event.request.method !== 'GET') return;
+
   event.respondWith(
-    caches.match(event.request).then(response =>
-      response || fetch(event.request)
-    )
+    caches.match(event.request).then(cachedResponse => {
+      // Busca na rede em segundo plano
+      const fetchPromise = fetch(event.request)
+        .then(networkResponse => {
+          // Só armazena se a resposta for válida e do mesmo domínio
+          if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
+            const responseClone = networkResponse.clone();
+            caches.open(CACHE_NAME).then(cache => {
+              cache.put(event.request, responseClone);
+            });
+          }
+          return networkResponse.clone();
+        })
+        .catch(() => cachedResponse); // Se offline, usa cache
+      // Retorna primeiro o cache (mais rápido)
+      return cachedResponse || fetchPromise;
+    })
   );
 });
 
-// --- FIREBASE MESSAGING CONFIGURATION ---
+// --- FIREBASE MESSAGING ---
 importScripts('https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js');
 importScripts('https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging-compat.js');
 
@@ -57,7 +77,7 @@ firebase.initializeApp({
 
 const messaging = firebase.messaging();
 
-// 🔔 Notificações recebidas em segundo plano (ex: com app fechado)
+// --- Notificações em segundo plano ---
 messaging.onBackgroundMessage(payload => {
   const title = payload.notification?.title || "Notificação";
   const options = {
@@ -67,23 +87,20 @@ messaging.onBackgroundMessage(payload => {
   self.registration.showNotification(title, options);
 });
 
-// 🔔 Notificações via push direto do backend
+// --- Push direto do backend ---
 self.addEventListener('push', event => {
   const data = event.data?.json() || {};
   const title = data.title || 'Nova Venda Confirmada!';
   const options = {
     body: data.body || 'Uma nova venda foi concluída!',
     icon: '/icons/icon-192.png',
-    data: {
-      url: data.url || '/vendidos.html'
-    }
+    data: { url: data.url || '/vendidos.html' }
   };
-
   event.waitUntil(self.registration.showNotification(title, options));
 });
 
-// ✅ Ao clicar na notificação → abre ou foca o app
-self.addEventListener('notificationclick', function(event) {
+// --- Ao clicar na notificação ---
+self.addEventListener('notificationclick', event => {
   event.notification.close();
   const destino = event.notification.data?.url || '/';
   event.waitUntil(

@@ -1,3 +1,4 @@
+// andamento.js
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
 import {
   getFirestore,
@@ -6,6 +7,7 @@ import {
   where,
   getDocs
 } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
+import { traduzirPagina } from "./global.js"; // Importa função de tradução
 
 // Config Firebase
 const firebaseConfig = {
@@ -20,50 +22,60 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+// Elementos do DOM
 const form = document.getElementById("formCPF");
 const cpfInput = document.getElementById("cpfInput");
 const resultado = document.getElementById("resultado");
 const erro = document.getElementById("erro");
 const contato = document.getElementById("contato");
 
-// Formata data ISO para "DD/MM/YYYY HH:mm"
+// Função para formatar data ISO
 function formatarData(isoString) {
   if (!isoString) return "N/D";
   const data = new Date(isoString);
-  return data.toLocaleDateString("pt-BR") + " " + data.toLocaleTimeString("pt-BR", {hour: '2-digit', minute: '2-digit'});
+  return data.toLocaleDateString("pt-BR") + " " + data.toLocaleTimeString("pt-BR", { hour: '2-digit', minute: '2-digit' });
 }
 
-// Traduz status da entrega para português
+// Função para traduzir status da entrega
 function traduzirStatus(status) {
   if (!status) return "N/D";
   const s = status.toLowerCase();
-
   if (s === "pending") return "Pendente";
   if (s === "saida") return "Saiu para entrega";
   if (s === "entregue") return "Entregue";
-
   return status;
 }
 
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const cpf = cpfInput.value.trim();
+// ✅ Função para aplicar tema claro/escuro
+function aplicarTema() {
+  const temaSalvo = localStorage.getItem("tema") || "claro";
+  document.body.classList.toggle("escuro", temaSalvo === "escuro");
+}
 
-  resultado.innerHTML = "";
-  resultado.style.display = "none";
-  erro.style.display = "none";
-  contato.style.display = "none";
-
-  if (!/^\d{11}$/.test(cpf)) {
-    erro.textContent = "Por favor, digite um CPF válido com 11 números.";
-    erro.style.display = "block";
-    return;
+// ✅ Função para aplicar idioma
+function aplicarIdiomaNaPagina() {
+  const idioma = localStorage.getItem("idioma") || "pt";
+  if (traduzirPagina) {
+    traduzirPagina(idioma);
   }
+}
 
+// Observa mudanças no localStorage
+window.addEventListener("storage", (event) => {
+  if (event.key === "tema") aplicarTema();
+  if (event.key === "idioma") aplicarIdiomaNaPagina();
+});
+
+// Função para consultar vendas
+async function consultarVendas(cpf) {
   try {
     const vendasRef = collection(db, "vendas");
     const q = query(vendasRef, where("cliente.cpf", "==", cpf));
     const querySnapshot = await getDocs(q);
+
+    resultado.innerHTML = "";
+    resultado.style.display = "none";
+    contato.style.display = "none";
 
     if (querySnapshot.empty) {
       erro.textContent = "Nenhuma venda encontrada para esse CPF. Por favor, digite um CPF válido.";
@@ -78,10 +90,7 @@ form.addEventListener("submit", async (e) => {
       const cliente = venda.cliente || {};
       const produtos = venda.produtos || [];
 
-      // Data da venda formatada
       const dataVendaFormatada = formatarData(venda.criadoEm || venda.dataAprovado);
-
-      // Status traduzido e destacado
       const statusEntrega = traduzirStatus(venda.status);
 
       html += `<div class="venda-box">
@@ -115,9 +124,28 @@ form.addEventListener("submit", async (e) => {
     resultado.innerHTML = html;
     resultado.style.display = "block";
     contato.style.display = "block";
+    erro.style.display = "none";
   } catch (error) {
     console.error("Erro ao consultar vendas:", error);
     erro.textContent = "Erro ao buscar as vendas. Tente novamente mais tarde.";
     erro.style.display = "block";
   }
+}
+
+// Evento do formulário
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const cpf = cpfInput.value.trim();
+  if (!/^\d{11}$/.test(cpf)) {
+    erro.textContent = "Por favor, digite um CPF válido com 11 números.";
+    erro.style.display = "block";
+    return;
+  }
+  consultarVendas(cpf);
+});
+
+// Inicialização
+document.addEventListener("DOMContentLoaded", () => {
+  aplicarTema();
+  aplicarIdiomaNaPagina();
 });

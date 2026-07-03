@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Carrinho de Compras</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <title data-i18n="title">Carrinho de Compras</title>
+  <link rel="stylesheet" href="/css/style.css" />
   <style>
-    /* — SEU CSS ORIGINAL: */
+    /* Estilo dos produtos no carrinho */
     .produto-card {
       display: flex;
       align-items: center;
@@ -46,24 +46,11 @@
       margin: 2px 0;
       font-size: 14px;
     }
-    .frete {
-      color: #00e676;
-    }
-    .descricao-extra {
-      color: #cdc009;
-    }
-    .preco-ant {
-      text-decoration: line-through;
-      color: #888;
-    }
-    .preco-oferta {
-      color: #ff4d4d;
-      font-weight: bold;
-    }
-    .preco {
-      color: #1a8cff;
-      font-weight: bold;
-    }
+    .frete { color: #00e676; }
+    .descricao-extra { color: #cdc009; }
+    .preco-ant { text-decoration: line-through; color: #888; }
+    .preco-oferta { color: #ff4d4d; font-weight: bold; }
+    .preco { color: #1a8cff; font-weight: bold; }
     .subtotal-final {
       font-size: 22px;
       font-weight: bold;
@@ -71,20 +58,8 @@
       text-align: center;
       margin: 30px 0 10px;
     }
-    .remover-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background-color: #ff3333;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      padding: 4px 8px;
-      font-size: 16px;
-      cursor: pointer;
-    }
 
-    /* — NOVO: Modal de zoom de imagem — */
+    /* Modal de zoom de imagem */
     #modalImagem {
       display: none;
       position: fixed;
@@ -99,50 +74,144 @@
       max-width: 90%;
       max-height: 90%;
     }
+
+    /* Modal de confirmação customizado */
+    #modalConfirm {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    #modalConfirm .modal-content {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      max-width: 300px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+    #modalConfirm button {
+      margin: 10px 5px 0 5px;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    #modalConfirm .btnSim { background: #00ccff; color: #000; }
+    #modalConfirm .btnNao { background: #ff3333; color: #fff; }
   </style>
 </head>
 <body>
 
   <!-- Frete Grátis no topo -->
   <div style="text-align: center; margin-top: 20px;">
-    <img src="imagens/frete-gratis.png" alt="Frete Grátis" style="width: 170px;" />
+    <img src="imagens/frete-gratis.png" alt="Frete Grátis" data-i18n-alt="frete_gratis" style="width: 170px;" />
   </div>
 
   <!-- Container do Carrinho -->
   <main id="carrinhoContainer" class="produtos-container" style="margin-top: 30px;"></main>
 
   <!-- Subtotal Final -->
-  <div id="subtotalFinal" class="subtotal-final"></div>
+  <div id="subtotalFinal" class="subtotal-final" data-i18n="subtotal_final">Subtotal Final</div>
 
   <!-- Imagem Melhor Preço -->
   <div style="text-align: right; margin: 40px 30px 20px;">
-    <img src="imagens/melhor-preco.png" alt="Melhor Preço" style="width: 170px;" />
+    <img src="imagens/melhor-preco.png" alt="Melhor Preço" data-i18n-alt="melhor_preco" style="width: 170px;" />
   </div>
 
   <!-- Botões de Ação -->
   <div style="text-align: center; margin-bottom: 30px;">
     <button class="finalizar-btn" onclick="prosseguirComACompra()"
-      style="font-size:18px;padding:12px 28px;background:#00ccff;border:none;border-radius:8px;cursor:pointer;font-weight:bold;color:#000;">
+      style="font-size:18px;padding:12px 28px;background:#00ccff;border:none;border-radius:8px;cursor:pointer;font-weight:bold;color:#000;"
+      data-i18n="prosseguir_compra">
       🛒 Prosseguir com a Compra
     </button>
     <br/><br/>
-    <button onclick="voltarDetalhes()" style="padding:10px 20px;font-size:16px;">⬅ Voltar</button>
+    <button onclick="voltarDetalhes()" style="padding:10px 20px;font-size:16px;" data-i18n="voltar">⬅ Voltar</button>
   </div>
 
-  <!-- Modal de imagem -->
+  <!-- Modal de zoom de imagem -->
   <div id="modalImagem">
     <img id="imagemAmpliada" src="" />
   </div>
 
-  <!-- Carrinho flutuante -->
-  <div id="cartFloat" class="oculto">🛒 Ver Carrinho</div>
+  <!-- Modal de confirmação -->
+  <div id="modalConfirm">
+    <div class="modal-content">
+      <p id="mensagemConfirm" data-i18n="mensagem_confirm">Mensagem de confirmação</p>
+      <button class="btnSim" id="btnSim" data-i18n="sim">Sim</button>
+      <button class="btnNao" id="btnNao" data-i18n="nao">Não</button>
+    </div>
+  </div>
 
-  <script type="module" src="js/carrinho.js"></script>
+  <!-- Carrinho flutuante -->
+  <div id="cartFloat" class="oculto" data-i18n="ver_carrinho">🛒 Ver Carrinho</div>
+  
+  <script defer src="/js/global.js"></script>
+  <script type="module" src="/js/carrinho.js"></script>
   <script>
-    // Fecha o modal ao clicar fora da imagem
+    // Fecha o modal de zoom ao clicar fora
     document.getElementById('modalImagem').addEventListener('click', () => {
       document.getElementById('modalImagem').style.display = 'none';
     });
+
+    // Função de voltar para index.html
+    function voltarDetalhes() {
+      window.location.href = "index.html";
+    }
+
+    // Função de prosseguir com a compra
+    function prosseguirComACompra() {
+      window.location.href = "confirmacao.html";
+    }
+
+    // Função para exibir modal de confirmação
+    function mostrarConfirmacao(mensagem, callbackSim) {
+      const modal = document.getElementById("modalConfirm");
+      const msg = document.getElementById("mensagemConfirm");
+      const btnSim = document.getElementById("btnSim");
+      const btnNao = document.getElementById("btnNao");
+
+      msg.textContent = mensagem;
+      modal.style.display = "flex";
+
+      btnSim.onclick = () => {
+        callbackSim();
+        modal.style.display = "none";
+      };
+
+      btnNao.onclick = () => {
+        modal.style.display = "none";
+      };
+    }
+
+    // Substituindo confirm() por modal customizado
+    window.confirmarRemoverUm = function(index) {
+      mostrarConfirmacao("Você tem certeza que deseja remover uma unidade deste item?", () => {
+        const carrinho = JSON.parse(localStorage.getItem('vipandroid_checkout')) || [];
+        if (carrinho[index].quantidade > 1) {
+          carrinho[index].quantidade -= 1;
+        } else {
+          carrinho.splice(index, 1);
+        }
+        localStorage.setItem('vipandroid_checkout', JSON.stringify(carrinho));
+        carregarCarrinho();
+      });
+    };
+
+    window.confirmarRemoverTudo = function(index) {
+      mostrarConfirmacao("Você tem certeza que deseja remover este item do carrinho?", () => {
+        const carrinho = JSON.parse(localStorage.getItem('vipandroid_checkout')) || [];
+        carrinho.splice(index, 1);
+        localStorage.setItem('vipandroid_checkout', JSON.stringify(carrinho));
+        carregarCarrinho();
+      });
+    };
   </script>
 </body>
 </html>

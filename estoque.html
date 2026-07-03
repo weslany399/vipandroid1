@@ -4,7 +4,145 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Estoque - VIP Android</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f2f4f8;
+      color: #333;
+    }
+
+    /* Modal Tela Cheia Horizontal */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      overflow-y: auto;
+    }
+
+    .modal.oculto {
+      display: none;
+    }
+
+    .form-edicao {
+      background-color: #fff;
+      border-radius: 15px;
+      padding: 25px 30px;
+      display: flex;
+      flex-direction: column;
+      width: 90%;
+      max-width: 1200px;
+      max-height: 90%;
+      overflow-y: auto;
+      gap: 20px;
+    }
+
+    .form-edicao h2 {
+      text-align: center;
+      color: #4f46e5;
+      margin-bottom: 10px;
+    }
+
+    .form-edicao .categoria-info {
+      text-align: center;
+      color: #666;
+      font-size: 0.9rem;
+      margin-bottom: 15px;
+    }
+
+    .campos-edicao-linha {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .campos-edicao-linha > div {
+      flex: 1;
+      min-width: 280px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .form-edicao label {
+      display: flex;
+      flex-direction: column;
+      font-weight: 600;
+      color: #333;
+      font-size: 0.9rem;
+    }
+
+    .form-edicao input,
+    .form-edicao textarea,
+    .form-edicao select {
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-top: 5px;
+      font-size: 0.95rem;
+    }
+
+    .form-edicao textarea {
+      resize: vertical;
+      min-height: 70px;
+    }
+
+    .botoes-edicao {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+      gap: 10px;
+    }
+
+    .botoes-edicao button {
+      flex: 1;
+      padding: 12px 0;
+      font-weight: 600;
+      font-size: 1rem;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    #btnSalvarEdicao {
+      background-color: #4f46e5;
+      color: #fff;
+    }
+
+    #btnSalvarEdicao:hover {
+      background-color: #4338ca;
+    }
+
+    #btnCancelarEdicao {
+      background-color: #e5e7eb;
+      color: #333;
+    }
+
+    #btnCancelarEdicao:hover {
+      background-color: #d1d5db;
+    }
+
+    .secao-campos {
+      border-top: 2px solid #e5e7eb;
+      padding-top: 15px;
+      margin-top: 10px;
+    }
+
+    .secao-campos h3 {
+      color: #4f46e5;
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+    }
+  </style>
 </head>
 <body>
   <!-- TOPO -->
@@ -36,42 +174,62 @@
     <button class="arrow left">←</button>
     <img src="" alt="Imagem ampliada" id="modalImg" />
     <button class="arrow right">→</button>
-    <!-- INPUT DE ARQUIVO PARA UPLOAD -->
     <input type="file" id="inputArquivoImg" accept="image/*" hidden multiple />
   </div>
 
-  <!-- MODAL DE EDIÇÃO -->
+  <!-- MODAL DE EDIÇÃO DINÂMICO -->
   <div id="modalEdicao" class="modal oculto">
     <div class="form-edicao">
       <h2>Editar Produto</h2>
-      <label>Nome:<input type="text" id="editNome" /></label>
-      <label>Marca:<input type="text" id="editMarca" /></label>
-      <label>Armazenamento (GB):<input type="number" id="editArmazenamento" /></label>
-      <label>RAM (GB):<input type="number" id="editRam" /></label>
-      <label>Tela ("):<input type="number" step="0.1" id="editTela" /></label>
-      <label>Câmera Traseira (MP):<input type="text" id="editCameraTraseira" /></label>
-      <label>Câmera Frontal (MP):<input type="number" id="editCameraFrontal" /></label>
-      <label>Bateria (mAh):<input type="number" id="editBateria" /></label>
-      <label>Descrição:<textarea id="editDescricao"></textarea></label>
-      <label>Preço (R$):<input type="number" step="0.01" id="editPreco" /></label>
-      <label>Preço Antigo (R$):<input type="number" step="0.01" id="editPrecoAntigo" /></label>
-      <label>Oferta:
-        <select id="editOferta">
-          <option value="false">Não</option>
-          <option value="true">Sim</option>
-        </select>
-      </label>
-      <label>Frete Grátis:
-        <select id="editFreteGratis">
-          <option value="false">Não</option>
-          <option value="true">Sim</option>
-        </select>
-      </label>
-      <label>Quantidade no Estoque:
-        <input type="number" id="editQuantidade" />
-      </label>
-      <div class="botoes-edicao" style="margin-top:10px;">
-        <button id="btnSalvarEdicao">Salvar</button>
+      <p class="categoria-info" id="categoriaInfo"></p>
+      
+      <!-- Campos comuns (sempre visíveis) -->
+      <div class="secao-campos">
+        <h3>Informações Básicas</h3>
+        <div class="campos-edicao-linha">
+          <div>
+            <label>Nome do Produto:<input type="text" id="editNome" required /></label>
+            <label>Marca / Fabricante:<input type="text" id="editMarca" required /></label>
+            <label>Preço (R$):<input type="number" step="0.01" id="editPreco" required /></label>
+          </div>
+          <div>
+            <label>Quantidade no Estoque:<input type="number" id="editQuantidade" required /></label>
+            <label>Estado:<select id="editEstado">
+              <option value="">Selecione</option>
+              <option value="novo">Novo</option>
+              <option value="seminovo">Seminovo</option>
+              <option value="usado">Usado</option>
+            </select></label>
+            <label>Status:<select id="editStatus">
+              <option value="disponivel">Disponível</option>
+              <option value="reservado">Reservado</option>
+            </select></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Oferta do Dia -->
+      <div class="secao-campos">
+        <h3>Oferta</h3>
+        <div class="campos-edicao-linha">
+          <div>
+            <label>É Oferta do Dia?<select id="editOferta">
+              <option value="false">Não</option>
+              <option value="true">Sim</option>
+            </select></label>
+          </div>
+          <div>
+            <label>Preço Antigo (R$):<input type="number" step="0.01" id="editPrecoAntigo" /></label>
+            <label>Preço Oferta (R$):<input type="number" step="0.01" id="editPrecoOferta" /></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Campos específicos da categoria (gerados dinamicamente) -->
+      <div id="camposEspecificos"></div>
+
+      <div class="botoes-edicao">
+        <button id="btnSalvarEdicao">Salvar Alterações</button>
         <button id="btnCancelarEdicao">Cancelar</button>
       </div>
     </div>
@@ -82,6 +240,6 @@
   <script type="module" src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js"></script>
 
   <!-- JS PRINCIPAL DO ESTOQUE -->
-  <script type="module" src="js/estoque.js"></script>
+  <script type="module" src="/js/estoque.js"></script>
 </body>
 </html>

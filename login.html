@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="title">Vip Android - Login</title>
+
+  <link rel="icon" href="icon.jpg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/login.css" />
+
+  <!-- Manifest PWA -->
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#000000" />
+
+  <!-- iOS PWA support -->
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="VipAndroid" />
+  <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+
+  <style>
+    /* Esconde os labels, mas mantém acessível para leitores de tela */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <img src="/imagens/logo.png" alt="Logo VIP Android" class="logo" />
+    <h1>
+      <span data-i18n="welcome">Bem-vindo(a) à</span><br />
+      <span class="vip-destaque" data-i18n="vip_android">VIP ANDROID</span>
+    </h1>
+    <p data-i18n="login_continue">Faça login para continuar</p>
+
+    <form id="loginForm" novalidate>
+      <label for="email" class="sr-only" data-i18n="email_label">E-mail</label>
+      <input type="email" id="email" name="email" data-i18n-placeholder="email_label" placeholder="E-mail" autocomplete="email" required />
+
+      <!-- Campo de senha -->
+      <div class="senha-container">
+        <label for="password" class="sr-only" data-i18n="password_label">Senha</label>
+        <input type="password" id="password" name="password" data-i18n-placeholder="password_label" placeholder="Senha" autocomplete="current-password" required />
+        <button type="button" id="togglePassword" class="olho" aria-label="Mostrar ou esconder senha" aria-pressed="false" data-i18n="show_hide_password">👁️</button>
+      </div>
+      <!-- fim -->
+
+      <div id="loginError" role="alert" aria-live="assertive" style="display:none"></div>
+
+      <button type="submit" id="submitLogin" data-i18n="login_button">Entrar</button>
+    </form>
+
+    <button type="button" id="googleLogin" data-i18n="login_google">Entrar com Google</button>
+
+    <div class="links">
+      <a href="#" id="resetSenha" data-i18n="forgot_password">Esqueci minha senha</a>
+      <a href="register.html" data-i18n="create_account">Criar conta</a>
+    </div>
+  </div>
+
+  <!-- Service Worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service.worker.js')
+          .then(reg => console.log("✅ Service Worker registrado"))
+          .catch(err => console.warn("Erro ao registrar Service Worker:", err));
+      });
+    }
+  </script>
+
+  <!-- Script de autenticação -->
+  <script type="module" src="/js/auth.js"></script>
+
+  <!-- Script para alternar a senha -->
+  <script>
+    const togglePassword = document.getElementById("togglePassword");
+    const passwordField = document.getElementById("password");
+
+    togglePassword.addEventListener("click", () => {
+      const type = passwordField.getAttribute("type") === "password" ? "text" : "password";
+      passwordField.setAttribute("type", type);
+
+      // Alterna acessibilidade
+      togglePassword.setAttribute("aria-pressed", type === "text");
+
+      // Troca o ícone
+      togglePassword.textContent = type === "password" ? "👁️" : "🙈";
+    });
+  </script>
+
+  <!-- Script Global de Tradução -->
+  <script src="/js/global.js"></script>   
+  <script>
+    // Defina o idioma desejado
+    aplicarIdioma("en"); // Troque para "pt", "es", "fr" etc
+  </script>
+</body>
+</html>

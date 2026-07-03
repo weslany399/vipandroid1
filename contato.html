@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Contato - VIP Android</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <title data-i18n="titulo_pagina">Contato - VIP Android</title>
+  <link rel="stylesheet" href="/css/style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
@@ -121,30 +121,32 @@
 </head>
 <body>
   <div class="contato-container">
-    <h1>📞 Entre em Contato Conosco no nosso Whatsapp ou no Instagram da nossa loja!</h1>
-    <p>Teremos grande satisfação em lhe atender! 💖</p>
+    <h1 data-i18n="titulo_contato">📞 Entre em Contato Conosco no nosso Whatsapp ou no Instagram da nossa loja!</h1>
+    <p data-i18n="descricao_contato">Teremos grande satisfação em lhe atender! 💖</p>
 
     <div class="social-links">
-      <div class="whatsapp-titulo">📱 WhatsApp da Loja</div>
-      <a href="https://w.app/6efysc" target="_blank" class="whatsapp">💬 Falar com a Loja</a>
+      <div class="whatsapp-titulo" data-i18n="titulo_whatsapp_loja">📱 WhatsApp da Loja</div>
+      <a href="https://wa.me/556892451530" target="_blank" class="whatsapp" data-i18n="link_whatsapp_loja">💬 Falar com a Loja</a>
 
-      <div class="whatsapp-titulo">👤 WhatsApp do Proprietário</div>
-      <a href="https://w.app/urhfsa" target="_blank" class="whatsapp">💬 Falar com o Proprietário</a>
+      <div class="whatsapp-titulo" data-i18n="titulo_whatsapp_proprietario">👤 WhatsApp do Proprietário</div>
+      <a href="https://wa.me/556899147048" target="_blank" class="whatsapp" data-i18n="link_whatsapp_proprietario">💬 Falar com o Proprietário</a>
 
-      <a href="https://www.instagram.com/vip__android?igsh=YzY2Z3d4aGpxeDN2&utm_source=qr" target="_blank" class="instagram">📷 Instagram</a>
+      <a href="https://www.instagram.com/vip__android?igsh=YzY2Z3d4aGpxeDN2&utm_source=qr" target="_blank" class="instagram" data-i18n="link_instagram">📷 Instagram</a>
     </div>
 
     <div class="imagem-redes">
-      <img src="imagens/redes-sociais.png" alt="Redes Sociais" />
+      <img src="imagens/redes-sociais.png" alt="Redes Sociais" data-i18n="alt_redes_sociais"/>
     </div>
 
     <div class="atendimento-box">
-      <p><strong>🕐 Atendimento:</strong> Segunda a Sábado, das 08h às 18h</p>
-      <p><strong>📍 Local:</strong> Brasiléia - Ao lado da Lotérica</p>
-      <p><strong>✉️ E-mail:</strong> Vipandroid2025@icloud.com</p>
+      <p><strong data-i18n="label_atendimento">🕐 Atendimento:</strong> <span data-i18n="texto_atendimento">Segunda a Sábado, das 08h às 18h</span></p>
+      <p><strong data-i18n="label_local">📍 Local:</strong> <span data-i18n="texto_local">Brasiléia - Ao lado da Lotérica</span></p>
+      <p><strong data-i18n="label_email">✉️ E-mail:</strong> <span data-i18n="texto_email">Vipandroid2025@icloud.com</span></p>
     </div>
 
-    <a href="home.html" class="botao-voltar">⬅️ Voltar ao Início</a>
+    <a href="index.html" class="botao-voltar" data-i18n="botao_voltar">⬅️ Voltar ao Início</a>
   </div>
+
+  <script src="/js/global.js" defer></script>
 </body>
 </html>

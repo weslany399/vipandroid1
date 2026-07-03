@@ -27,53 +27,127 @@
     p {
       font-size: 18px;
       margin-bottom: 30px;
+      line-height: 1.6;
     }
 
     .botoes {
       display: flex;
       gap: 20px;
       flex-wrap: wrap;
+      justify-content: center;
     }
 
     button {
       background-color: #00ccff;
       color: #000;
-      padding: 12px 24px;
+      padding: 14px 28px;
       font-size: 16px;
       font-weight: bold;
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      transition: background 0.3s ease;
+      transition: all 0.3s ease;
+      min-width: 150px;
     }
 
     button:hover {
       background-color: #009acc;
+      transform: scale(1.05);
+    }
+
+    .btn-cancelar {
+      background-color: #555;
+      color: #fff;
+    }
+
+    .btn-cancelar:hover {
+      background-color: #777;
+    }
+
+    .mensagem-final {
+      display: none;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
   </style>
 </head>
 <body>
-  <h1>Deseja realmente sair?</h1>
-  <p>Se você confirmar, sua sessão será encerrada e você poderá fechar o app.</p>
+  <div id="confirmacao">
+    <h1>🚪 Deseja realmente sair?</h1>
+    <p>Se você confirmar, sua sessão será encerrada e o aplicativo será fechado.</p>
 
-  <div class="botoes">
-    <button onclick="encerrarSessao()">✅ Sim, encerrar</button>
-    <button onclick="window.location.href='home.html'">⬅ Não, voltar para a loja</button>
+    <div class="botoes">
+      <button onclick="encerrarSessao()">✅ Sim, eu quero sair do app</button>
+      <button class="btn-cancelar" onclick="voltarParaLoja()">❌ Não, eu quero voltar para a loja</button>
+    </div>
   </div>
 
-  <script>
-    function encerrarSessao() {
-      // Limpa os dados de sessão/local
-      localStorage.clear();
-      sessionStorage.clear();
+  <div id="mensagemFinal" class="mensagem-final">
+    <h1>✅ Sessão encerrada com sucesso!</h1>
+    <p>Você foi desconectado com segurança.</p>
+    <p style="margin-top: 30px; font-size: 16px; color: #00ccff;">
+      O app será fechado automaticamente...<br>
+      Se não fechar, você pode fechá-lo manualmente.
+    </p>
+    <p style="margin-top: 40px; font-size: 20px;">Obrigado por usar Vip Android 💙</p>
+  </div>
 
-      // Exibe mensagem e instrução para fechar o app
-      document.body.innerHTML = `
-        <h1>Sessão encerrada com sucesso</h1>
-        <p>Agora você pode <strong>fechar este app</strong> usando o botão de voltar ou deslizando ele na multitarefa do seu celular.</p>
-        <p style="margin-top: 40px;">Obrigado por comprar conosco 💙</p>
-      `;
+  <script type="module">
+    import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { auth } from "./js/firebase-config.js";
+
+    async function encerrarSessao() {
+      try {
+        // 1. Fazer logout no Firebase
+        await signOut(auth);
+        
+        // 2. Limpar dados locais
+        localStorage.clear();
+        sessionStorage.clear();
+
+        // 3. Mostrar mensagem de despedida
+        document.getElementById('confirmacao').style.display = 'none';
+        document.getElementById('mensagemFinal').style.display = 'block';
+
+        // 4. Tentar fechar o app (múltiplas estratégias)
+        setTimeout(() => {
+          // Estratégia 1: Fechar janela
+          window.close();
+          
+          // Estratégia 2: Voltar até o histórico acabar (para PWA)
+          if (window.history.length > 1) {
+            window.history.go(-window.history.length);
+          }
+          
+          // Estratégia 3: Redirecionar para página em branco (para forçar "saída")
+          setTimeout(() => {
+            window.location.href = 'about:blank';
+          }, 500);
+          
+          // Estratégia 4: Para PWA instalado, tentar fechar
+          if (window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches) {
+            window.close();
+          }
+        }, 2000); // Aguarda 2 segundos para mostrar mensagem
+
+      } catch (error) {
+        console.error("Erro ao encerrar sessão:", error);
+        alert("❌ Erro ao sair. Tente novamente.");
+      }
     }
+
+    function voltarParaLoja() {
+      window.location.href = '/index.html';
+    }
+
+    // Torna funções globais
+    window.encerrarSessao = encerrarSessao;
+    window.voltarParaLoja = voltarParaLoja;
   </script>
+  <script src="/js/global.js" defer></script>
 </body>
 </html>

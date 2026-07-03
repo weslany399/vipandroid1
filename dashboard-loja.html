@@ -4,42 +4,85 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Dashboard da Loja - VIP Android</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="/css/style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: 'Poppins', sans-serif;
       background: linear-gradient(135deg, #0c1f3c, #1a1a2e);
       color: #fff;
-      margin: 0; padding: 0;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       min-height: 100vh;
       text-align: center;
     }
-    .topo { background: #101529; padding: 10px 0; width: 100%; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
-    .logo-topo { max-width: 140px; }
+
+    .topo {
+      background: #101529;
+      padding: 10px 0;
+      width: 100%;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .logo-topo {
+      max-width: 140px;
+    }
+
     .botoes-painel {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center; /* centraliza os botões horizontalmente */
+      align-items: center;
       gap: 16px;
       padding: 30px 20px 10px;
-      width: 100%; max-width: 700px;
+      width: 100%;
+      max-width: 700px;
     }
+
     .botao-painel {
-      background: #0077ff; color: #fff;
-      padding: 16px 12px; border: none;
-      border-radius: 10px; font-size: 20px;
-      font-weight: bold; cursor: pointer;
-      text-decoration: none; width: 100%;
-      max-width: 220px; transition: 0.3s;
+      background: linear-gradient(135deg, #0077ff, #00d4ff);
+      color: #fff;
+      padding: 16px 12px;
+      border: none;
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 160px;
+      max-width: 220px;
       box-shadow: 0 6px 14px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
     }
-    .botao-painel:hover { background: #49ff01; transform: scale(1.10); }
+
+    .botao-painel:hover,
+    .botao-painel:active {
+      transform: scale(1.05);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.35);
+      background: linear-gradient(135deg, #49ff01, #00ffae);
+    }
+
+    @media (max-width: 500px) {
+      .botao-painel {
+        min-width: 80%;
+        font-size: 16px;
+        padding: 14px 10px;
+      }
+    }
+
     .mensagem-boasvindas {
       margin: 24px auto 10px;
-      font-size: 20px; color: #4dff01;
-      max-width: 600px; line-height: 1.6;
+      font-size: 20px;
+      color: #4dff01;
+      max-width: 600px;
+      line-height: 1.6;
     }
   </style>
 </head>
@@ -50,9 +93,9 @@
   </div>
 
   <div class="botoes-painel">
-    <a href="cadastro-produto.html" class="botao-painel">📲 Cadastrar Produto</a>
-    <a href="estoque.html" class="botao-painel">📦 Estoque</a>
-    <a href="vendidos.html" class="botao-painel">📊 controle de vendas e relatorio</a>
+    <a href="cadastro-produto.html" class="botao-painel">📲 Cadastro de Produtos</a>
+    <a href="estoque.html" class="botao-painel">📦 Estoque e edição de produtos</a>
+    <a href="vendidos.html" class="botao-painel">📊 Controle de Vendas e Relatório</a>
     <a href="login-loja.html" class="botao-painel">↩️ Voltar</a>
   </div>
 
@@ -87,7 +130,6 @@
           )
           .then(token => {
             console.log("🔔 Token FCM:", token);
-            // Aqui você pode enviar o token para o backend, se necessário
           })
           .catch(err =>
             console.error("❌ Erro ao registrar SW ou obter token:", err)
@@ -97,12 +139,9 @@
       }
     });
 
-    // Exibe a notificação se o app estiver em primeiro plano
     messaging.onMessage(payload => {
       console.log("📩 Notificação recebida em primeiro plano:", payload);
-
       const { title, body, icon } = payload.notification;
-
       new Notification(title, {
         body: body,
         icon: icon || "/imagens/logo.png"

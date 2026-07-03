@@ -4,15 +4,66 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>⭐ Favoritos - VIP Android</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="/css/style.css" />
 
   <style>
+    .barra-superior {
+      display: flex;
+      align-items: center;
+      background-color: #111;
+      padding: 10px;
+    }
+
     .barra-superior h1 {
       flex-grow: 1;
       text-align: center;
       font-size: 20px;
       color: #fff;
       margin: 0;
+    }
+
+    .barra-superior .voltar-btn {
+      background-color: #ff4d4d;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 6px 10px;
+      cursor: pointer;
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    .menu-lateral {
+      position: fixed;
+      top: 0;
+      left: -250px; /* escondido inicialmente */
+      width: 250px;
+      height: 100%;
+      background-color: #111;
+      color: #fff;
+      padding: 20px;
+      transition: left 0.3s ease;
+      z-index: 1000;
+    }
+
+    .menu-lateral ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .menu-lateral ul li {
+      margin: 20px 0;
+    }
+
+    .menu-lateral ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+    }
+
+    .menu-lateral.ativo {
+      left: 0; /* menu visível */
     }
 
     .produtos-container {
@@ -95,14 +146,15 @@
 
   <!-- BARRA SUPERIOR -->
   <div class="barra-superior">
-    <button id="menuBotao" class="menu">☰</button>
+    <a href="index.html" class="voltar-btn">← Voltar</a>
     <h1>⭐ Meus Favoritos</h1>
+    <button id="menuBotao" class="menu">☰</button>
   </div>
 
   <!-- MENU LATERAL -->
-  <nav class="menu-lateral oculto">
+  <nav class="menu-lateral" id="menuLateral">
     <ul>
-      <li><a href="home.html">🏠 voltar ao Início</a></li>
+      <li><a href="index.html">🏠 Voltar ao Início</a></li>
     </ul>
   </nav>
 
@@ -116,7 +168,8 @@
   <a href="carrinho.html" id="cartFloat" class="oculto">🛒</a>
 
   <!-- SCRIPTS -->
-  <script type="module" src="js/favoritos.js" defer></script>
-  <script src="js/menu.js" defer></script>
+  <script src="/js/global.js" defer></script>
+  <script type="module" src="/js/favoritos.js" defer></script>
+  <script type="module" src="/js/menu.js" defer></script>
 </body>
 </html>

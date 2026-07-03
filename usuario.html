@@ -1,0 +1,40 @@
+<!DOCTYPE html> 
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Configurações do Usuário</title>
+  <!-- Apenas o CSS da página de usuário -->
+  <link rel="stylesheet" href="/css/usuario.css">
+</head>
+<body> 
+  <main class="usuario-container">
+    <h1>Configurações da Conta</h1>
+
+    <!-- Informações do Usuário -->
+    <section>
+      <h2>1️⃣ Informações do Usuário</h2>
+      <p><strong>Nome:</strong> <span id="userName">Carregando...</span></p>
+      <p><strong>Email:</strong> <span id="userEmail">Carregando...</span></p>
+      <p><strong>Último login:</strong> <span id="userLastLogin">Carregando...</span></p>
+    </section>
+
+    <!-- Segurança -->
+    <section>
+      <h2>2️⃣ Segurança</h2>
+      <button id="btnChangePassword">Alterar senha</button>
+      <button id="btnAddEmail">Adicionar novo email</button>
+    </section>
+
+    <!-- Ações da Conta -->
+    <section>
+      <h2>3️⃣ Ações da Conta</h2>
+      <button id="btnDeleteAccount" class="danger">Excluir conta</button>
+    </section>
+
+    <p><a href="index.html">⬅️ Voltar ao início</a></p>
+  </main>
+
+  <script type="module" src="/js/usuario.js"></script>
+</body>
+</html>

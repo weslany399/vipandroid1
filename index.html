@@ -3,68 +3,133 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VIP Android - Login</title>
-
-  <!-- Favicon -->
-  <link rel="icon" href="favicon.ico" type="image/x-icon" />
-
-  <!-- Estilo -->
-  <link rel="stylesheet" href="css/login.css" />
-
-  <!-- Manifest PWA -->
-  <link rel="manifest" href="manifest.json" />
+  <title data-i18n="titulo_pagina">Vip Android - Loja</title>
+  <link rel="icon" href="/icon.jpg" type="image/x-icon" />
+  <link rel="manifest" href="/manifest.json" />
   <meta name="theme-color" content="#000000" />
+  <link rel="stylesheet" href="/css/style.css?v=7" />
 
-  <!-- iOS PWA support -->
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="VipAndroid" />
-  <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+  <!-- Open Graph -->
+  <meta property="og:title" content="Vip Android - Loja de Celulares" />
+  <meta property="og:description" content="Os melhores celulares novos e seminovos com garantia e preço justo. Confira nossas ofertas!" />
+  <meta property="og:image" content="https://vip-android-746dd.web.app/imagens/produto-exemplo.jpg" />
+  <meta property="og:url" content="https://vip-android-746dd.web.app" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Vip Android - Loja de Celulares" />
+  <meta name="twitter:description" content="Os melhores celulares novos e seminovos com garantia e preço justo. Confira nossas ofertas!" />
+  <meta name="twitter:image" content="https://vip-android-746dd.web.app/imagens/produto-exemplo.jpg" />
+</head>
+
+<body>
+  <!-- TOPO -->
+  <div class="topo">
+    <img src="/imagens/logo.png" alt="Logo VIP Android" class="logo-topo" />
+  </div>
+
+  <!-- SELO -->
+  <div class="selo-confianca" data-i18n="selo_texto">
+    🛡️ Compra 100% Segura | 📦 Envio Rápido | 📱 Loja especializada em qualidade
+  </div>
+
+  <!-- BARRA SUPERIOR -->
+  <div class="barra-superior">
+    <button id="menuBotao" title="Menu">☰</button>
+    <input type="text" id="busca" data-i18n-placeholder="buscar_placeholder" placeholder="Buscar por nome ou marca" />
+    <select id="filtroCategoria" aria-label="Filtrar por categoria">
+      <option value="" data-i18n="todas_categorias">Categorias</option>
+    </select>
+    <button id="btnConfig" title="Configurações" onclick="window.location.href='/configuracoes.html'">⚙️</button>
+    <button id="userBtn" title="Minha Conta" onclick="window.location.href='/usuario.html'">👤</button>
+  </div>
+
+  <!-- MENU LATERAL -->
+  <nav id="menuLateral" class="menu-lateral oculto">
+    <ul>
+      <li><a href="/index.html">🏠 Início</a></li>
+      <li><a href="/ofertas.html">🔥 Ofertas</a></li>
+      <li><a href="/andamento.html" data-require-login>🚚 Andamento</a></li>
+      <li><a href="/favoritos.html" data-require-login>⭐ Favoritos</a></li>
+      <li><a href="/avaliacoes.html">📝 Avaliações</a></li>
+      <li><a href="/painel-loja.html" data-require-login>📋 Painel da Loja</a></li>
+      <li><a href="/ajuda.html">❓ Ajuda</a></li>
+      <li><a href="/contato.html">📞 Contato</a></li>
+      <li><a href="/carrinho.html" data-require-login>🛒 Carrinho</a></li>
+      <li><a href="/compartilhar.html">📲 Compartilhar app</a></li>
+      <li><a href="/logout.html" data-require-login>🚪 Sair</a></li>
+    </ul>
+  </nav>
+
+  <!-- OVERLAY (fundo escuro quando menu aberto) -->
+  <div class="overlay"></div>
+
+  <!-- PRODUTOS -->
+  <main>
+    <!-- SEÇÃO 1: OFERTAS -->
+    <section class="secao-ofertas">
+      <h2 class="titulo-secao">🔥 Promoções Imperdíveis Aproveite! 🔥</h2>
+      <div class="produtos-container ofertas-grid" id="produtosOfertas">
+        <!-- Cards de ofertas serão inseridos aqui pelo JS -->
+      </div>
+    </section>
+
+    <!-- SEÇÃO 2: CATEGORIAS (CÍRCULOS) - ESTILO MAGALU -->
+    <section class="secao-categorias">
+      <div class="categorias-header">
+        <h2 class="titulo-categorias">🔥Categorias disponiveis na Vip Android🤖</h2>
+      </div>
+      <div class="categorias-scroll">
+        <div class="categorias-container" id="categoriasCirculos">
+          <!-- Círculos de categorias serão inseridos aqui pelo JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 4: PRODUTOS QUE COMBINAM COM VOCÊ (3 COLUNAS) -->
+    <section class="secao-recomendados">
+      <h2 class="titulo-secao">✨ Produtos que combinam com você garanta já o seu! ✨</h2>
+      <div class="produtos-container recomendados-grid" id="produtosRecomendados">
+        <!-- Cards de produtos recomendados serão inseridos aqui pelo JS -->
+      </div>
+    </section>
+
+    <!-- SEÇÃO 3: TODOS OS PRODUTOS -->
+    <section class="secao-produtos">
+      <h2 class="titulo-secao">🛍️ Aproveite Nossos Produtos</h2>
+      <div class="produtos-container todos-grid" id="produtosTodos">
+        <!-- Todos os produtos serão inseridos aqui pelo JS -->
+      </div>
+    </section>
+
+    <!-- BLOCO CONFIANÇA -->
+    <div class="bloco-confianca">
+      <p class="titulo-bloco">🔒 Avaliação & Confiança</p>
+      <ul>
+        <li>✔️ Celulares novos e seminovos com nota fiscal</li>
+        <li>✔️ Atendimento local com entrega rápida</li>
+        <li>✔️ Produtos testados e verificados</li>
+        <li>✔️ Loja com avaliações reais de clientes</li>
+      </ul>
+    </div>
+  </main>
+
+  <!-- CARRINHO FLUTUANTE -->
+  <a href="/carrinho.html" id="cartFloat" class="oculto">🛒</a>
+
+  <!-- JS -->
+  <script src="/js/global.js" defer></script>
+  <script type="module" src="/js/auth.js" defer></script>
+  <script type="module" src="/js/home.js" defer></script>
+  <script type="module" src="/js/menu.js" defer></script>
 
   <!-- Service Worker -->
   <script>
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/firebase-messaging-sw.js')
-        .then(reg => console.log("✅ Service Worker registrado"))
-        .catch(err => console.warn("Erro ao registrar Service Worker:", err));
-    }
-  </script>
-
-  <!-- Script de autenticação -->
-  <script type="module" src="js/auth.js" defer></script>
-</head>
-<body>
-  <div class="login-container">
-    <img src="imagens/logo.png" alt="Logo VIP Android" class="logo" />
-    <h1>
-  Bem-vindo(a) à<br />
-  <span class="vip-destaque">VIP ANDROID</span>
-</h1>
-    <p>Faça login para continuar</p>
-
-    <form id="loginForm">
-      <input type="email" id="email" placeholder="E-mail" required />
-
-      <div class="senha-container">
-        <input type="password" id="password" placeholder="Senha" required />
-        <span class="olho" onclick="toggleSenha()" role="button" aria-label="Mostrar ou esconder senha">👁️</span>
-      </div>
-
-      <button type="submit">Entrar</button>
-    </form>
-
-    <button id="googleLogin">Entrar com Google</button>
-
-    <div class="links">
-      <a href="#" id="resetSenha">Esqueci minha senha</a>
-      <a href="register.html">Criar conta</a>
-    </div>
-  </div>
-
-  <script>
-    function toggleSenha() {
-      const senhaInput = document.getElementById("password");
-      senhaInput.type = senhaInput.type === "password" ? "text" : "password";
+      navigator.serviceWorker.register('/service-worker.js')
+        .then(() => console.log('✅ Service Worker registrado com sucesso.'))
+        .catch(err => console.warn('❌ Erro ao registrar Service Worker:', err));
     }
   </script>
 </body>
